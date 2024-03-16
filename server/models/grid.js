@@ -5,35 +5,35 @@ const gridSchema = new Schema({
     // Measurements
     width: {
         type: Number,
-        required: [true, "grid must have a width"]
+        // required: [true, "grid must have a width"]
     },
     hight: {
         type: Number,
-        required: [true, "grid must have a hight"]
+        // required: [true, "grid must have a hight"]
     },
 
     // Layout
     count: {
         x: {
             type: Number,
-            required: [true, "grid must have a count.x"]
+            // required: [true, "grid must have a count.x"]
         },
         y: {
             type: Number,
-            required: [true, "grid must have a count.y"]
+            // required: [true, "grid must have a count.y"]
         },
     },
     factor: {
         x: [
             {
                 type: Number,
-                required: [true, "grid must have a factor.x"]
+                // required: [true, "grid must have a factor.x"]
             }
         ],
         y: [
             {
                 type: Number,
-                required: [true, "grid must have a factor.y"]
+                // required: [true, "grid must have a factor.y"]
             }
         ],
     },
