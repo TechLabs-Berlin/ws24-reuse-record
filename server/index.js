@@ -3,14 +3,13 @@ const app = express();
 const mongoose = require("mongoose");
 
 const Grid = require("./models/grid");
-const Cell = require("./models/cell");
-const Frame = require("./models/frame");
-const Glas = require("./models/glas");
-const Profile = require("./models/profile");
-const grid = require("./models/grid");
 
+// MongoDB Atlas connection string
+const uri = "mongodb+srv://Baukreisel:0bufUFCoXzyNfxtk@reuserecord.lenyaxi.mongodb.net/reuseRecord?retryWrites=true&w=majority&appName=ReuseRecord";
+// // MongoDB Local connection string
+// const uri = "mongodb://127.0.0.1:27017/reuseRecord";
 
-mongoose.connect('mongodb://127.0.0.1:27017/reuseRecord')
+mongoose.connect(uri)
     .then(() => {
         console.log("Mongo Connection Open!")
     })
@@ -28,15 +27,42 @@ app.get("/grids", async (req, res) => {
     res.send(grids)
 })
 
+app.get("/glassMeasurements", async (req, res) => {
+    const glassMeasurements = await Grid
+        .find({ "cells.glass": { $exists: true } })
+        .select("cells.glass.width cells.glass.height");
+    res.send(glassMeasurements);
+})
+
 app.post("/grids", async (req, res) => {
     console.log(req.body);
     const grid = new Grid(req.body);
     console.log(grid)
-    // await grid.save();
+    await grid.save();
+    res.send("Saved!")
+})
+
+app.delete("/deleteAll", async (req, res) => {
+    await Grid.deleteMany({});
+    console.log('All documents deleted successfully');
+    res.send("Deleted!")
 })
 
 
 
+// app.post("/grids", async (req, res) => {
+//     console.log(req.body);
+//     const { count, cells } = req.body;
+//     const gird = new Grid(count);
+//     const cellsArray = [];
+//     for (let cell of cells) {
+//         const newCell = new Cell({ cell });
+//         cellsArray.push(newCell);
+//     };
+//     cellsArray.grid = grid;
+//     grid.cells = cellsArray;
+//     console.log(grid);
+// })
 
 
 
@@ -146,3 +172,32 @@ app.listen(3000, () => {
     console.log("Listening on Port 3000");
 })
 
+
+
+
+
+
+
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://Baukreisel:0bufUFCoXzyNfxtk@reuserecord.lenyaxi.mongodb.net/?retryWrites=true&w=majority&appName=ReuseRecord";
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     // Send a ping to confirm a successful connection
+//     await client.db("admin").command({ ping: 1 });
+//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
