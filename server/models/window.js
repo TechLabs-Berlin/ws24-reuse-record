@@ -14,6 +14,7 @@ const windowSchema = new Schema({
             type: String
         }
     },
+
     // Sub
     grid: {
         // Measurements
