@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 const mongoose = require("mongoose");
 
-const Grid = require("./models/grid");
+const Window = require("./models/window");
 
 // MongoDB Atlas connection string
 const uri = "mongodb+srv://Baukreisel:0bufUFCoXzyNfxtk@reuserecord.lenyaxi.mongodb.net/reuseRecord?retryWrites=true&w=majority&appName=ReuseRecord";
@@ -22,31 +24,82 @@ mongoose.connect(uri)
 app.use(express.json());
 
 
-app.get("/grids", async (req, res) => {
-    const grids = await Grid.find({});
-    res.send(grids)
+app.get("/windows", async (req, res) => {
+    const windows = await Window.find({}).select("grid");
+    res.send(windows)
 })
 
+app.get('/images/:id', async (req, res) => {
+    const window = await Window.findById(req.params.id);
+    if (!window.image) {
+        return res.status(404).json({ error: 'Image not found' });
+    }
+    res.set('Content-Type', window.image.mimetype);
+    console.log(window.image);
+    res.send(window.image.data);
+});
+
+
 app.get("/glassMeasurements", async (req, res) => {
-    const glassMeasurements = await Grid
-        .find({ "cells.glass": { $exists: true } })
-        .select("cells.glass.width cells.glass.height");
+    const glassMeasurements = await Window
+        .find({ "grid.cells.glass": { $exists: true } })
+        .select("grid.cells.glass.width cells.glass.height");
     res.send(glassMeasurements);
 })
 
-app.post("/grids", async (req, res) => {
+app.post("/windows", async (req, res) => {
     console.log(req.body);
-    const grid = new Grid(req.body);
-    console.log(grid)
-    await grid.save();
+    const window = new Window(req.body);
+    console.log(window)
+    await window.save();
     res.send("Saved!")
 })
 
+app.post('/upload', upload.single('image'), async (req, res) => {
+    console.log(req.file)
+    const { filename, path, mimetype, size } = req.file;
+    const imageData = req.file.buffer;
+    const window = new Window({
+        image: {
+            name: filename,
+            data: imageData,
+            mimetype: mimetype,
+            size: size
+        }
+    });
+    console.log(window)
+    await window.save();
+    res.send("Uploaded!")
+});
+
+app.post('/upload/:id', upload.single('image'), async (req, res) => {
+    const window = await Window.findById(req.params.id);
+    console.log(req.file)
+    const { filename, path, mimetype, size } = req.file;
+    const imageData = req.file.buffer;
+    window.image = {
+        name: filename,
+        data: imageData,
+        mimetype: mimetype,
+        size: size
+    };
+    console.log(window);
+    await window.save();
+    res.send("Image added!")
+});
+
+
 app.delete("/deleteAll", async (req, res) => {
-    await Grid.deleteMany({});
+    await Window.deleteMany({});
     console.log('All documents deleted successfully');
     res.send("Deleted!")
 })
+
+app.delete("/windows/:id", async (req, res) => {
+    const window = await Window.findByIdAndDelete(req.params.id);
+    res.send(`Deleted! ${req.params.id}`)
+})
+
 
 
 

@@ -10,8 +10,11 @@ const windowSchema = new Schema({
         data: {
             type: Buffer
         },
-        contentType: {
+        mimetype: {
             type: String
+        },
+        size: {
+            type: Number
         }
     },
 
