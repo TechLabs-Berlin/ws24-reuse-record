@@ -85,7 +85,7 @@ app.post('/upload/:id', upload.single('image'), async (req, res) => {
     };
     console.log(window);
     await window.save();
-    res.send("Image added!")
+    res.send(`Image added to ${req.params.id}!`)
 });
 
 
