@@ -43,7 +43,7 @@ app.get('/images/:id', async (req, res) => {
 app.get("/glassMeasurements", async (req, res) => {
     const glassMeasurements = await Window
         .find({ "grid.cells.glass": { $exists: true } })
-        .select("grid.cells.glass.width cells.glass.height");
+        .select("grid.cells.glass.width grid.cells.glass.height");
     res.send(glassMeasurements);
 })
 
@@ -85,7 +85,7 @@ app.post('/upload/:id', upload.single('image'), async (req, res) => {
     };
     console.log(window);
     await window.save();
-    res.send("Image added!")
+    res.send(`Image added to ${req.params.id}!`)
 });
 
 
