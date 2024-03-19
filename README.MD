@@ -2,10 +2,10 @@
 
 ## Team
 
+- UX: Marta Jasińska
+- Web Development: Pratima Maharjan & Jannik Oslender
+- Data Science: Natalie Lunau
 - Deep Learning: Soma Hargitai and Christoph Erber
-- Data Science: Marta Jasińska
-- UX: Jannik Oslender
-- Web Development: Pratima Maharjan
 
 ## Project Description
 
