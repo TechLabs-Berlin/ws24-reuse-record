@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, Button, View } from 'react-native';
 import { Camera } from 'expo-camera';
 import { useState } from 'react';
+import { CameraPreview } from '@/components/CameraPreview';
 // import { CameraPreview } from './components/CameraPreview';
 
 let camera: any;
@@ -39,9 +40,9 @@ export default function App() {
             }}
           />
           <Button title="Click!" color="#ac4" onPress={takePicture} />
-          {/* {previewVisible && capturedImage && (
-            // <CameraPreview photo={capturedImage} />
-          )} */}
+          {previewVisible && capturedImage && (
+            <CameraPreview photo={capturedImage} />
+          )}
         </>
       ) : (
         <Button title="Open Camera" color="#ac4" onPress={startCamera} />

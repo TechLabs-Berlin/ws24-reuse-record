@@ -2,7 +2,7 @@ import { Text, View,StyleSheet, Pressable } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient';
 
 const Configurator = () =>{
-    const { onPress, title = 'Save' } = props;
+ 
     return(
      <View style={{flex: 1,
         justifyContent: 'center',
@@ -15,11 +15,16 @@ const Configurator = () =>{
             locations={[0.3, 0.3]} // Adjust the color stop positions here
             style={styles.gradient}
       />
-      <Pressable>
-        <Text>Add</Text>
-        <Text>Subtract</Text>
-      </Pressable>
+      <View style={{display:"flex", flexDirection:"column", gap:10}}>
+      <Pressable style={styles.customButton }>
+        <Text style={styles.buttonLabel}>+</Text>
+        </Pressable>
+        <Pressable style={styles.customButton }>
+        <Text style={styles.buttonLabel}>-</Text>
+        </Pressable>  
   
+      </View>
+     
      </View>
     )
 }
@@ -37,13 +42,16 @@ const styles = StyleSheet.create({
       borderColor: '#e2e8f1',
     },
     customButton:{
-        backgroundColor:"#4f3",
+      borderRadius: 50,
+        backgroundColor:"rgb(146 159 29)",
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,
         paddingHorizontal: 32,
-        borderRadius: 4,
         elevation: 3,
+    },
+    buttonLabel:{
+       color:"#fff"
     }
   });
 
