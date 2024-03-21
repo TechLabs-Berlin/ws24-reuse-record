@@ -1,5 +1,6 @@
+import { Link } from 'expo-router';
 import { FC } from 'react';
-import { Image, ImageSourcePropType, Text, View } from 'react-native';
+import { Image, ImageSourcePropType, Pressable, Text, View } from 'react-native';
 
 type CatalogItemProps = {
   title: string;
@@ -17,7 +18,9 @@ const CatalogItem: FC<CatalogItemProps> = ({
   feature,
 }) => {
   return (
-    <View
+    <Link href="/GridConfigurator"  asChild>
+      <Pressable>
+      <View
       style={{ flexDirection: 'row', marginBottom: 10, marginTop: 10, gap: 10, borderWidth:1, borderColor:"#ccc", padding:8 }}
     >
       <Image style={{ width: 100, height: 100 }} source={{uri: img}} />
@@ -28,6 +31,10 @@ const CatalogItem: FC<CatalogItemProps> = ({
         <Text>{feature}</Text>
       </View>
     </View>
+      </Pressable>
+     
+    </Link>
+    
   );
 };
 
