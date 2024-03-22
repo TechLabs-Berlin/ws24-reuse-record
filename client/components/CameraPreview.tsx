@@ -1,8 +1,13 @@
 import { ImageBackground, View } from 'react-native';
 
-function CameraPreview({ photo }) {
+interface Props {
+    photo?: { uri: string }; // Define the type of the photo prop
+  }
+
+
+const CameraPreview: React.FC<Props> = ({ photo })=> {
   return (
-    <View style={{backgroundColor:"transparent", flex:1, width:"100%", height:"80%"}}>
+    <View style={{backgroundColor:"transparent", width: "100%", height:"80%"}}>
       <ImageBackground
         style={{flex:1}}
         source={{ uri: photo && photo.uri }}

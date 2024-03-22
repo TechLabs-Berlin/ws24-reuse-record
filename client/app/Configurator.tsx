@@ -4,7 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 const Configurator = () =>{
  
     return(
-     <View style={{flex: 1,
+      <View style={{display:"flex", flexDirection:"column"}}>
+           <View style={{flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
       }} >
@@ -22,10 +23,11 @@ const Configurator = () =>{
         <Pressable style={styles.customButton }>
         <Text style={styles.buttonLabel}>-</Text>
         </Pressable>  
-  
       </View>
      
      </View>
+      </View>
+  
     )
 }
 
