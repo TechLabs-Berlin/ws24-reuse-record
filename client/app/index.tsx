@@ -13,6 +13,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import { useEffect, useState } from 'react';
 import { CameraPreview } from '@/components/CameraPreview';
+import { Link } from 'expo-router';
 // import { CameraPreview } from './components/CameraPreview';
 
 let camera: any;
@@ -104,9 +105,11 @@ export default function App() {
                   >
                     <FontAwesome name="times" size={24} color="#fff" />
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.doubleCircle}>
-                    <Text>Save</Text>
-                  </TouchableOpacity>
+                  <Link href="/Configurator" asChild>
+                    <TouchableOpacity style={styles.doubleCircle}>
+                      <Text>Save</Text>
+                    </TouchableOpacity>
+                  </Link>
                 </>
               ) : (
                 <View style={styles.doubleCircle}>
@@ -119,7 +122,7 @@ export default function App() {
             </View>
           </View>
         </>
-      ) }
+      )}
       <StatusBar style="auto" />
     </View>
   );
