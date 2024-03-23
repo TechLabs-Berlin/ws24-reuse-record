@@ -1,12 +1,18 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import { seedWindows } from '@/data/data';
 import Grid from '@/components/Grid';
+import { useState } from 'react';
 
+const gridData = seedWindows[0].grid;
 const GridConfigurator = () => {
-  const gridData = seedWindows[0].grid;
+  const [rows, setRows] = useState<number>(gridData.count.y);
+  const [cols, setCols] = useState<number>(gridData.count.x);
   return (
     <>
+      <Text>
+        {rows}, {cols}
+      </Text>
       <Grid {...gridData} />
       <View
         style={{
@@ -16,10 +22,20 @@ const GridConfigurator = () => {
           marginBottom: -30,
         }}
       >
-        <Pressable style={styles.customButton}>
+        <Pressable
+          style={styles.customButton}
+          onPress={() => {
+            setCols((prev) => prev + 1);
+          }}
+        >
           <Text style={styles.buttonLabel}>+</Text>
         </Pressable>
-        <Pressable style={styles.customButton}>
+        <Pressable
+          style={styles.customButton}
+          onPress={() => {
+            setCols((prev) => prev - 1 || 1);
+          }}
+        >
           <Text style={styles.buttonLabel}>-</Text>
         </Pressable>
       </View>
@@ -32,10 +48,20 @@ const GridConfigurator = () => {
           marginRight: -80,
         }}
       >
-        <Pressable style={styles.customButton}>
+        <Pressable
+          style={styles.customButton}
+          onPress={() => {
+            setRows((prev) => prev - 1 || 1);
+          }}
+        >
           <Text style={styles.buttonLabel}>-</Text>
         </Pressable>
-        <Pressable style={styles.customButton}>
+        <Pressable
+          style={styles.customButton}
+          onPress={() => {
+            setRows((prev) => prev + 1);
+          }}
+        >
           <Text style={styles.buttonLabel}>+</Text>
         </Pressable>
       </View>

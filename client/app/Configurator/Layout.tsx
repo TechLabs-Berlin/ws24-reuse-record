@@ -1,7 +1,8 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import Grid from '@/components/Grid';
-import { SeedWindow, seedWindows } from '@/data/data';
+import { seedWindows } from '@/data/data';
+
 const gridData = seedWindows[0].grid;
 
 const WindowLayout = () => {
@@ -38,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Grid;
+export default WindowLayout;
