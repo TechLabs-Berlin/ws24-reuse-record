@@ -5,11 +5,11 @@ const cellSchema = new Schema({
     // Measurements
     width: {
         type: Number,
-        required: [true, "cell must have a width"]
+        // required: [true, "cell must have a width"]
     },
     hight: {
         type: Number,
-        required: [true, "cell must have a hight"]
+        // required: [true, "cell must have a hight"]
     },
 
     // possible entries ["null", "fixed", "openable", "parapet"]
@@ -17,7 +17,7 @@ const cellSchema = new Schema({
         type: String,
         lowercase: true,
         enum: ["null", "fixed", "openable", "parapet"],
-        required: [true, "cell must have a type"]
+        // required: [true, "cell must have a type"]
     },
 
     // Sup

@@ -1,16 +1,17 @@
 const express = require("express");
 const app = express();
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 const mongoose = require("mongoose");
 
-const Grid = require("./models/grid");
-const Cell = require("./models/cell");
-const Frame = require("./models/frame");
-const Glas = require("./models/glas");
-const Profile = require("./models/profile");
-const grid = require("./models/grid");
+const Window = require("./models/window");
 
+// MongoDB Atlas connection string
+const uri = "mongodb+srv://Baukreisel:0bufUFCoXzyNfxtk@reuserecord.lenyaxi.mongodb.net/reuseRecord?retryWrites=true&w=majority&appName=ReuseRecord";
+// // MongoDB Local connection string
+// const uri = "mongodb://127.0.0.1:27017/reuseRecord";
 
-mongoose.connect('mongodb://127.0.0.1:27017/reuseRecord')
+mongoose.connect(uri)
     .then(() => {
         console.log("Mongo Connection Open!")
     })
@@ -23,20 +24,98 @@ mongoose.connect('mongodb://127.0.0.1:27017/reuseRecord')
 app.use(express.json());
 
 
-app.get("/grids", async (req, res) => {
-    const grids = await Grid.find({});
-    res.send(grids)
+app.get("/windows", async (req, res) => {
+    const windows = await Window.find({}).select("grid");
+    res.send(windows)
 })
 
-app.post("/grids", async (req, res) => {
+app.get('/images/:id', async (req, res) => {
+    const window = await Window.findById(req.params.id);
+    if (!window.image) {
+        return res.status(404).json({ error: 'Image not found' });
+    }
+    res.set('Content-Type', window.image.mimetype);
+    console.log(window.image);
+    res.send(window.image.data);
+});
+
+
+app.get("/glassMeasurements", async (req, res) => {
+    const glassMeasurements = await Window
+        .find({ "grid.cells.glass": { $exists: true } })
+        .select("grid.cells.glass.width grid.cells.glass.height");
+    res.send(glassMeasurements);
+})
+
+app.post("/windows", async (req, res) => {
     console.log(req.body);
-    const grid = new Grid(req.body);
-    console.log(grid)
-    // await grid.save();
+    const window = new Window(req.body);
+    console.log(window)
+    await window.save();
+    res.send("Saved!")
+})
+
+app.post('/upload', upload.single('image'), async (req, res) => {
+    console.log(req.file)
+    const { filename, path, mimetype, size } = req.file;
+    const imageData = req.file.buffer;
+    const window = new Window({
+        image: {
+            name: filename,
+            data: imageData,
+            mimetype: mimetype,
+            size: size
+        }
+    });
+    console.log(window)
+    await window.save();
+    res.send("Uploaded!")
+});
+
+app.post('/upload/:id', upload.single('image'), async (req, res) => {
+    const window = await Window.findById(req.params.id);
+    console.log(req.file)
+    const { filename, path, mimetype, size } = req.file;
+    const imageData = req.file.buffer;
+    window.image = {
+        name: filename,
+        data: imageData,
+        mimetype: mimetype,
+        size: size
+    };
+    console.log(window);
+    await window.save();
+    res.send(`Image added to ${req.params.id}!`)
+});
+
+
+app.delete("/deleteAll", async (req, res) => {
+    await Window.deleteMany({});
+    console.log('All documents deleted successfully');
+    res.send("Deleted!")
+})
+
+app.delete("/windows/:id", async (req, res) => {
+    const window = await Window.findByIdAndDelete(req.params.id);
+    res.send(`Deleted! ${req.params.id}`)
 })
 
 
 
+
+// app.post("/grids", async (req, res) => {
+//     console.log(req.body);
+//     const { count, cells } = req.body;
+//     const gird = new Grid(count);
+//     const cellsArray = [];
+//     for (let cell of cells) {
+//         const newCell = new Cell({ cell });
+//         cellsArray.push(newCell);
+//     };
+//     cellsArray.grid = grid;
+//     grid.cells = cellsArray;
+//     console.log(grid);
+// })
 
 
 
@@ -146,3 +225,32 @@ app.listen(3000, () => {
     console.log("Listening on Port 3000");
 })
 
+
+
+
+
+
+
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://Baukreisel:0bufUFCoXzyNfxtk@reuserecord.lenyaxi.mongodb.net/?retryWrites=true&w=majority&appName=ReuseRecord";
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     // Send a ping to confirm a successful connection
+//     await client.db("admin").command({ ping: 1 });
+//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
