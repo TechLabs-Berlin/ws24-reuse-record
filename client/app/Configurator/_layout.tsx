@@ -46,11 +46,6 @@ const Configurator = () => {
             <Text style={styles.tabItem}>Layout</Text>
           </Pressable>
         </Link>
-        <Link href="/Configurator/Type" asChild>
-          <Pressable>
-            <Text style={styles.tabItem}>Type</Text>
-          </Pressable>
-        </Link>
         <Link href="/Configurator/Size" asChild>
           <Pressable>
             <Text style={styles.tabItem}>Size</Text>
@@ -71,13 +66,18 @@ const Configurator = () => {
             <Text style={styles.tabItem}>Glass</Text>
           </Pressable>
         </Link>
-        <Link href="/Configurator/Location" asChild>
-          <Pressable>
-            <Text style={styles.tabItem}>Location</Text>
-          </Pressable>
-        </Link>
       </View>
-      <Slot />
+      <View
+        style={{
+          flex: 1,
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+        }}
+      >
+        <Slot />
+      </View>
     </View>
   );
 };

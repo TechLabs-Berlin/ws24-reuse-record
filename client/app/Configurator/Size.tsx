@@ -1,86 +1,35 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-  Keyboard,
-  TextInput,
-} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { useState } from 'react';
-import KeyboardBtn from '@/components/KeyboardBtn';
-import KeyboardInput from '@/components/KeyboradInput';
+import Grid from '@/components/Grid';
 
-const Grid = () => {
+import { seedWindows } from '@/data/data';
+const gridData = seedWindows[0].grid;
+
+const SizeConfigurator = () => {
   const [activeCondition, setActiveCondition] = useState(null);
 
   const handelPress = (condition: any) => {
     setActiveCondition(condition === activeCondition ? null : condition);
   };
   return (
-    <ScrollView>
+    <>
+      <Grid {...gridData} />
+      <View style={{ ...styles.input, top: 0, right: '50%', marginRight: -40 }}>
+        <TextInput defaultValue="100" keyboardType="numeric"></TextInput>
+        <Text>cm</Text>
+      </View>
       <View
         style={{
-          flex: 1,
-          width: '100%',
+          ...styles.input,
+          right: 0,
+          bottom: '50%',
+          marginBottom: -10,
         }}
       >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Pressable onPress={() => handelPress('open')}>
-            <Text>{activeCondition === 'open' ? 'close' : 'Open'} </Text>
-          </Pressable>
-          <Pressable onPress={() => handelPress('fixed')}>
-            <Text>{activeCondition === 'close' ? 'parapet' : 'Fixed'}</Text>
-          </Pressable>
-          <Pressable onPress={() => handelPress('Parapet')}>
-            <Text>{activeCondition === 'parapet' ? 'open' : 'Parapet'}</Text>
-          </Pressable>
-          <LinearGradient
-            colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
-            style={styles.gradient}
-          />
-        </View>
-        <View
-          style={{
-            position: 'absolute',
-            right: 0,
-            bottom: '50%',
-            marginBottom: -30,
-          }}
-        >
-          <Pressable style={styles.customButton}>
-            <Text style={styles.buttonLabel}>+</Text>
-          </Pressable>
-          <Pressable style={styles.customButton}>
-            <Text style={styles.buttonLabel}>-</Text>
-          </Pressable>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            position: 'absolute',
-            bottom: 0,
-            right: '50%',
-          }}
-        >
-          <Pressable style={styles.customButton}>
-            <Text style={styles.buttonLabel}>-</Text>
-          </Pressable>
-          <Pressable style={styles.customButton}>
-            <Text style={styles.buttonLabel}>+</Text>
-          </Pressable>
-        </View>
-        <TextInput
-          style={{ ...styles.input, top: 0, right: '50%' }}
-        ></TextInput>
+        <TextInput defaultValue="100" keyboardType="numeric"></TextInput>
+        <Text>cm</Text>
       </View>
-    </ScrollView>
+    </>
   );
 };
 
@@ -109,6 +58,11 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   input: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    textAlign: 'center',
+    gap: 3,
     width: 80,
     borderRadius: 50,
     borderWidth: 1,
@@ -119,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Grid;
+export default SizeConfigurator;

@@ -1,23 +1,13 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { seedWindows } from '@/data/data';
+import Grid from '@/components/Grid';
 
-const Grid = () => {
+const GridConfigurator = () => {
+  const gridData = seedWindows[0].grid;
   return (
-    <View
-      style={{
-        flex: 1,
-        width: '100%',
-      }}
-    >
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <LinearGradient
-          colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
-          style={styles.gradient}
-        />
-      </View>
+    <>
+      <Grid {...gridData} />
       <View
         style={{
           position: 'absolute',
@@ -49,7 +39,7 @@ const Grid = () => {
           <Text style={styles.buttonLabel}>+</Text>
         </Pressable>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -79,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Grid;
+export default GridConfigurator;
