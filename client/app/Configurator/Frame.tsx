@@ -1,82 +1,111 @@
-import { Text, View, StyleSheet, Pressable } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+const materials = ['PVC', 'wood', 'aluminium'];
+const surfaces = ['natural', 'licquer', 'stained', 'anadized', 'fail'];
 
-const Grid = () => {
+type SettingsType = {
+  material: string;
+  surface: string;
+};
+const WindowFrame = () => {
+  const [settings, setSettings] = useState<SettingsType>({
+    material: 'PVC',
+    surface: 'natural',
+  });
+
+  const updateSettings = (change: Partial<SettingsType>) => {
+    setSettings((prev) => {
+      return { ...prev, ...change };
+    });
+  };
   return (
-    <View
-      style={{
-        flex: 1,
-        width: '100%',
-      }}
-    >
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <LinearGradient
-          colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
-          style={styles.gradient}
-        />
+    <>
+      <View style={styles.container}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          }}
+        >
+          <Text>Frame</Text>
+          <View style={styles.options}>
+            <Text>Material</Text>
+            {materials.map((material) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    updateSettings({ material });
+                  }}
+                  style={{
+                    ...styles.Btn,
+                    backgroundColor:
+                      settings.material === material ? '#9f6b1d' : '#ccc',
+                  }}
+                >
+                  <Text>{material}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <View style={styles.options}>
+            <Text>Surface</Text>
+            {surfaces.map((surface) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    updateSettings({ surface });
+                  }}
+                  style={{
+                    ...styles.Btn,
+                    backgroundColor:
+                      settings.surface === surface ? '#9f6b1d' : '#ccc',
+                  }}
+                >
+                  <Text>{surface}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <View style={styles.options}>
+            <Text>Depth</Text>
+            <TouchableOpacity style={styles.Btn}>
+              <Text>7cm</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.options}>
+            <Text>Thickness</Text>
+            <TouchableOpacity style={styles.Btn}>
+              <Text>8cm</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      <View
-        style={{
-          position: 'absolute',
-          right: 0,
-          bottom: '50%',
-          marginBottom: -30,
-        }}
-      >
-        <Pressable style={styles.customButton}>
-          <Text style={styles.buttonLabel}>+</Text>
-        </Pressable>
-        <Pressable style={styles.customButton}>
-          <Text style={styles.buttonLabel}>-</Text>
-        </Pressable>
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          position: 'absolute',
-          bottom: 0,
-          right: '50%',
-          marginRight: -80,
-        }}
-      >
-        <Pressable style={styles.customButton}>
-          <Text style={styles.buttonLabel}>-jghf</Text>
-        </Pressable>
-        <Pressable style={styles.customButton}>
-          <Text style={styles.buttonLabel}>+</Text>
-        </Pressable>
-      </View>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
+    padding: 10,
   },
-  gradient: {
-    width: 100,
-    height: 100,
-    borderWidth: 10,
-    borderColor: '#e2e8f1',
+  Btn: {
+    backgroundColor: '#999',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
-  customButton: {
-    borderRadius: 50,
-    backgroundColor: 'rgb(146 159 29)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    elevation: 3,
+  options: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
   },
+
   buttonLabel: {
     color: '#fff',
   },
 });
 
-export default Grid;
+export default WindowFrame;

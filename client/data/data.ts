@@ -79,7 +79,7 @@ export const seedWindows: SeedWindow[] = [
       },
       cells: [
         {
-          width: 50,
+          width: 100,
           height: 100,
           type: 'parapet',
           frame: {
@@ -99,7 +99,7 @@ export const seedWindows: SeedWindow[] = [
           },
         },
         {
-          width: 150,
+          width: 100,
           height: 100,
           type: 'openable',
           frame: {
@@ -119,7 +119,7 @@ export const seedWindows: SeedWindow[] = [
           },
         },
         {
-          width: 50,
+          width: 100,
           height: 100,
           type: 'fixed',
           frame: {
@@ -139,7 +139,7 @@ export const seedWindows: SeedWindow[] = [
           },
         },
         {
-          width: 150,
+          width: 100,
           height: 100,
           type: 'openable',
           frame: {
