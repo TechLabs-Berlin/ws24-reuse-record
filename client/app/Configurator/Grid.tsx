@@ -1,8 +1,9 @@
-import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Pressable, ScrollView } from 'react-native';
 
 import { seedWindows } from '@/data/data';
 import Grid from '@/components/Grid';
 import { useState } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const gridData = seedWindows[0].grid;
 const GridConfigurator = () => {
@@ -10,10 +11,46 @@ const GridConfigurator = () => {
   const [cols, setCols] = useState<number>(gridData.count.x);
   return (
     <>
-      <Text>
-        {rows}, {cols}
+      <Text
+        style={{
+          borderWidth: 1,
+          borderColor: '#444',
+          paddingHorizontal: 12,
+          paddingVertical: 6,
+          borderRadius: 20,
+          marginVertical: 5,
+        }}
+      >
+        {cols} x {rows}
       </Text>
-      <Grid {...gridData} />
+      <ScrollView>
+        {new Array(rows).fill('').map(() => {
+          return (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 2,
+                marginBottom: 2,
+              }}
+            >
+              {new Array(cols).fill('').map(() => {
+                return (
+                  <View style={{ width: 100, height: 100 }}>
+                    <LinearGradient
+                      colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
+                      style={{ width: 100, height: 100 }}
+                    ></LinearGradient>
+                  </View>
+                );
+              })}
+            </View>
+          );
+        })}
+      </ScrollView>
       <View
         style={{
           position: 'absolute',
