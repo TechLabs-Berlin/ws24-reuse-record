@@ -52,9 +52,13 @@ function windowCalc(input) {
     }
 
     // Merges the input object with the default object to set default values for missing properties
-    const result = _.merge({}, fallback, input);
+    const result = _.merge({}, defaultGrid, input);
 
+    if (input?.grid?.count && input?.grid?.cells?.length > 0) {
+        input.gird.count.x * input.grid.count.y
+    } else {
 
+    }
 
 
 
