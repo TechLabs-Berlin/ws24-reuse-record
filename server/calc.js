@@ -161,19 +161,19 @@ export function windowCalc(input) {
 }
 
 
-// let inputObject = {
-//     grid: {
-//         count: {
-//             x: 2,
-//             y: 2
-//         },
-//         frame: {
-//             width: 50,
-//             height: 50
-//         }
-//     }
+let inputObject = {
+    grid: {
+        count: {
+            x: 2,
+            y: 2
+        },
+        frame: {
+            width: 50,
+            height: 50
+        }
+    }
 
-// };
+};
 
 
 
