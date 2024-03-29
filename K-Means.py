@@ -4,20 +4,9 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-data = pd.read_json("Data.json")
 
-#Rename in pythonic Style
-def rename_keys(d):
-    new_dict = {}
-    for key, value in d.items():
-        if isinstance(value, dict):
-            value = rename_keys(value)
-        new_key = key.replace(" ", "_").lower() 
-        new_dict[new_key] = value
-    return new_dict
-
-data = rename_keys(data)
-df = pd.DataFrame(data)
+#Import Data
+df = pd.read_csv("Cleaned_CSV.csv")
 
 selected_columns = ['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']
 df_selected = df[selected_columns]

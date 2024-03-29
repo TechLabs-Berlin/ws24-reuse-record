@@ -3,8 +3,15 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import seaborn as sns
 import hdbscan
+import pymongo
 
-data = pd.read_json("Data.json")
+client = pymongo.MongoClient("mongodb://username:password@hostname:port/database")
+db = client['your_database_name']
+collection = db['your_collection_name']
+
+window_configs = collection.find({})
+
+data = []
 
 #Rename in pythonic Style
 def rename_keys(d):
@@ -47,5 +54,5 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 print(df_selected)
 
-# Daten als JSON extrahieren
+# Extracting as  JSON
 df_selected.to_json("Data_output.json", orient="records")

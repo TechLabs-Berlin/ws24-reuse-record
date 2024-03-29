@@ -1,0 +1,67 @@
+const grid = {
+    // Measurements
+    width: 200,
+    hight: 200,
+    // Layout
+    count: {
+        x: 2,
+        y: 2
+    },
+    factor: {
+        x: [1, 1],
+        y: [1, 1]
+    },
+    //    Sub
+    frame:
+    {
+        // Measurements
+        width: 204,
+        hight: 204,
+        // Materiality
+        material: "wood",
+        surface: "stained",
+        colour: "brown"
+        // Sub
+        profile: {
+            // Measurements
+            width: 8,
+            offsetOutXY: 2,
+            offsetInXY: 6,
+            depth: 6
+        }
+        
+    },
+    cells: [
+        {
+            // Measurements
+            width: 100,
+            hight: 100,
+            // possible entries ["null", "fixed", "openable", "parapet"]
+            type: "openable",
+            // Sub
+            frame:
+            {
+                // Measurements
+                width: 92,
+                hight: 92,
+                // Sub
+                profile: {
+                    // Measurements
+                    width: 8,
+                    offsetOutXY: 2,
+                    offsetInXY: 6,
+                    depth: 6
+                }
+            },
+            glas:
+            {
+                // Measurements
+                width: 76,
+                hight: 76,
+                // possible entries ["single", "double", "triple"]
+                type: "double"
+            }
+        },
+    // cell[1,2,3] missing for clearity
+    ],
+}
