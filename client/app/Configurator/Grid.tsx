@@ -54,7 +54,7 @@ const GridConfigurator = () => {
       <View
         style={{
           position: 'absolute',
-          right: 0,
+          right: 50,
           bottom: '50%',
           marginBottom: -30,
         }}
@@ -80,9 +80,9 @@ const GridConfigurator = () => {
         style={{
           flexDirection: 'row',
           position: 'absolute',
-          bottom: 0,
+          bottom: 18,
           right: '50%',
-          marginRight: -80,
+          marginRight: -70,
         }}
       >
         <Pressable

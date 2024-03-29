@@ -21,7 +21,7 @@ const SizeConfigurator = () => {
       <View
         style={{
           ...styles.input,
-          right: 0,
+          right: 50,
           bottom: '50%',
           marginBottom: -10,
         }}
