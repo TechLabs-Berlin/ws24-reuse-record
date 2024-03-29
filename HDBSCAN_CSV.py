@@ -4,35 +4,33 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import hdbscan
 
+#Import Data
 df = pd.read_csv("Cleaned_CSV.csv")
-
-selected_columns = ['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']
-df_selected = df[selected_columns]
 
 # Scaling Data
 scaler = StandardScaler()
-df_scaled = scaler.fit_transform(df_selected)
+df_scaled = scaler.fit_transform(df)
 
 # Cluster  HDBSCAN
 clusterer = hdbscan.HDBSCAN(min_cluster_size=5)
-df_selected['Cluster'] = clusterer.fit_predict(df_scaled)
+df['Cluster'] = clusterer.fit_predict(df_scaled)
 
 # Visualizing  Cluster
-sns.scatterplot(x='Size Horizontal [m]', y='Size Vertical [m]', hue='Cluster', data=df_selected)
+sns.scatterplot(data=df, x='size_horizontal_[m]', y='size_vertical_[m]', hue='Cluster')
 plt.title('HDBSCAN Clustering')
 plt.show()
 
-print(df_selected['Cluster'].value_counts())
+print(df['Cluster'].value_counts())
 
 # Mean of  Cluster
-cluster_means = df_selected.groupby('Cluster').mean()
+cluster_means = df.groupby('Cluster').mean()
 print(cluster_means)
 
 # Show DataFrame
 pd.set_option('display.precision', 2)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
-print(df_selected)
+print(df)
 
 # Extracting as  JSON
-df_selected.to_json("Data_output.json", orient="records")
+df.to_json("Data_output_HDBSCAN.json", orient="records")
