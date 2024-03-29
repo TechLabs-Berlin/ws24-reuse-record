@@ -10,17 +10,23 @@ df.columns = df.columns.str.strip().str.replace(' ', '_').str.replace('[^\w\s]',
 for column in ["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]:
     df[column] = df[column].str.replace(',', '.').astype(float)
 
+#Droping Columns
+columns_to_drop = ['recordid', 'images', 'renamedimages', 'newname', 'isspecial', 'a1',
+       'a2', 'a3', 'a4', 'b1', 'b2', 'b3', 'b4', 'c1', 'c2', 'c3', 'c4', 'd1',
+       'd2', 'd3', 'd4', 'outside_different_?', 'frame_colour_outside', 'frame_surface_outside',
+       'frame_material_outside', 'glazing_type']
+df.drop(columns=columns_to_drop, inplace=True)
+
 # Replace NaN with Mean
 df.replace(0, np.nan, inplace=True)
 mean_values = df[["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]].mean()
 df.fillna(mean_values, inplace=True)
 
 #One-Hot-Encoding
-df_encoded = pd.get_dummies(df, columns=["frame_colour", "frame_surface", "frame_material"])
-
-# Combine important_rows with mean_values
-cleaned_data = pd.concat([df[["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]], df_encoded], axis=1)
-cleaned_data.loc["Mean"] = mean_values
+df_encoded = pd.get_dummies(df, columns=["frame_colour", "frame_surface", "frame_material"], drop_first=True)
+df_encoded.replace({True: 1, False: 0}, inplace=True)
 
 # Exporting to new CSV 
-cleaned_data.to_csv("Cleaned_CSV.csv", index=False, float_format='%.2f')
+columns_to_export = ["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]
+columns_to_export.extend(df_encoded.columns)
+df_encoded.to_csv("Cleaned_CSV.csv", columns=columns_to_export, index=False, float_format='%.2f')
