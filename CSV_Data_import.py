@@ -29,4 +29,4 @@ df_encoded.replace({True: 1, False: 0}, inplace=True)
 # Exporting to new CSV 
 columns_to_export = ["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]
 columns_to_export.extend(df_encoded.columns)
-df_encoded.to_csv("Cleaned_CSV.csv", columns=columns_to_export, index=False, float_format='%.2f')
+df_encoded.to_csv("Cleaned_Data.csv", columns=columns_to_export, index=False, float_format='%.2f')

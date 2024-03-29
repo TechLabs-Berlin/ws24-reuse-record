@@ -33,4 +33,4 @@ pd.set_option('display.expand_frame_repr', False)
 print(df)
 
 # Extracting as  JSON
-df.to_json("Data_output_HDBSCAN.json", orient="records")
+df.to_json("Data_Output_HDBSCAN.json", orient="records")
