@@ -68,7 +68,12 @@ const GridConfigurator = () => {
           <Text style={styles.buttonLabel}>+</Text>
         </Pressable>
         <Pressable
-          style={styles.customButton}
+          style={{
+            ...styles.customButton,
+            borderTopRightRadius: 30,
+            borderBottomRightRadius: 30,
+            backgroundColor: '#333',
+          }}
           onPress={() => {
             setCols((prev) => prev - 1 || 1);
           }}
@@ -118,12 +123,12 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     borderColor: '#e2e8f1',
   },
+
   customButton: {
-    borderRadius: 50,
     backgroundColor: 'rgb(146 159 29)',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
+    paddingVertical: 20,
     paddingHorizontal: 32,
     elevation: 3,
   },

@@ -61,8 +61,8 @@ export const seedWindows: SeedWindow[] = [
         y: 2,
       },
       factor: {
-        x: [1, 1],
-        y: [1, 1],
+        x: [1, 2],
+        y: [2, 1],
       },
       frame: {
         width: 210,

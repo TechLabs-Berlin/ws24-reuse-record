@@ -40,7 +40,7 @@ const CatalogItem: FC<CatalogItemProps> = ({
           }}
         >
           <Image style={{ width: '50%' }} source={img} />
-          <View style={{ flexDirection: 'column', gap: 5 }}>
+          <View style={{ flexDirection: 'column', gap: 10 }}>
             {/* Glanzings code start here */}
             <View style={{ display: 'flex', gap: 5, flexDirection: 'row' }}>
               <View style={{ ...styles.button, backgroundColor: '#ccc' }}>
