@@ -8,8 +8,7 @@ import seaborn as sns
 #Import Data
 df = pd.read_csv("Cleaned_CSV.csv")
 
-selected_columns = ['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']
-df_selected = df[selected_columns]
+df_selected = df.copy()
 
 scaler = StandardScaler()
 df_scaled = scaler.fit_transform(df_selected)
@@ -46,7 +45,7 @@ df_selected['Cluster'] = kmeans.fit_predict(df_scaled)
 print(df_selected['Cluster'].value_counts())
 
 # Scatterplot
-df_scaled_with_cluster = pd.DataFrame(df_scaled, columns=['Dimension1', 'Dimension2', 'Dimension3'])
+df_scaled_with_cluster = pd.DataFrame(df_scaled, columns=['Dimension{}'.format(i) for i in range(df_scaled.shape[1])])
 df_scaled_with_cluster['Cluster'] = df_selected['Cluster']
 sns.scatterplot(x='Dimension1', y='Dimension2', hue='Cluster', data=df_scaled_with_cluster)
 plt.title('K-Means Clustering')
@@ -63,4 +62,4 @@ pd.set_option('display.expand_frame_repr', False)
 print(df_selected)
 
 # extracting Data as  JSON
-df_selected.to_json("Data_output.json", orient="records")
+df_selected.to_json("Data_Output_K-Means.json", orient="records")
