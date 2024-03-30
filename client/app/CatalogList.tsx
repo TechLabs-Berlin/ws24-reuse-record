@@ -93,7 +93,18 @@ const CatalogList = () => {
         </View>
       </ScrollView>
       <Link href="/Camera" asChild>
-        <Pressable style={styles.buttonAdd}>
+        <Pressable
+          style={{
+            ...styles.buttonAdd,
+
+            shadowColor: '#555', // For iOS shadow
+            shadowOffset: { width: 0, height: 2 }, // For iOS shadow
+            shadowOpacity: 1, // For iOS shadow
+            shadowRadius: 4, // For iOS shadow
+            elevation: 6, // For Android shadow
+            opacity: 0.9,
+          }}
+        >
           <AntDesign name="plus" size={30} color="#ccc" />
         </Pressable>
       </Link>
@@ -107,8 +118,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonAdd: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     position: 'absolute',
     bottom: 20,
     right: 20,
