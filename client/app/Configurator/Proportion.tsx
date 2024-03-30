@@ -14,7 +14,7 @@ const gridData = seedWindows[0].grid;
 
 const rows = gridData.count.y;
 const cols = gridData.count.x;
-const GridProporation = () => {
+const GridProportion = () => {
   const [rowsFactor, setRowsFactor] = useState<number[]>(gridData.factor.y);
   const [colsFactor, setColsFactor] = useState<number[]>(gridData.factor.x);
   return (
@@ -23,6 +23,7 @@ const GridProporation = () => {
         {new Array(rows).fill('').map((y, j) => {
           return (
             <View
+              key={j}
               style={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -33,6 +34,7 @@ const GridProporation = () => {
               {new Array(cols).fill('').map((x, i) => {
                 return (
                   <View
+                    key={i}
                     style={{
                       width: 50 * colsFactor[i],
                       height: 50 * rowsFactor[j],
@@ -61,7 +63,7 @@ const GridProporation = () => {
         <Text>Rows</Text>
         {new Array(rows).fill('').map((x, i) => {
           return (
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <View key={i} style={{ display: 'flex', flexDirection: 'row' }}>
               <Button
                 title="-"
                 onPress={() => {
@@ -104,11 +106,35 @@ const GridProporation = () => {
         <Text>Cols</Text>
         {new Array(cols).fill('').map((x, i) => {
           return (
-            <TextInput
-              style={styles.input}
-              defaultValue={`${colsFactor[i]}`}
-              keyboardType="numeric"
-            ></TextInput>
+            <View>
+              <Button
+                title="+"
+                onPress={() => {
+                  setColsFactor((prev) => {
+                    const newFactor = [...prev];
+                    newFactor[i] += 1;
+                    return newFactor;
+                  });
+                }}
+              />
+
+              <TextInput
+                key={i}
+                style={styles.input}
+                defaultValue={`${colsFactor[i]}`}
+                keyboardType="numeric"
+              ></TextInput>
+              <Button
+                title="-"
+                onPress={() => {
+                  setColsFactor((prev) => {
+                    const newFactor = [...prev];
+                    newFactor[i] -= 1;
+                    return newFactor;
+                  });
+                }}
+              />
+            </View>
           );
         })}
       </View>
@@ -167,4 +193,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GridProporation;
+export default GridProportion;

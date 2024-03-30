@@ -42,7 +42,7 @@ const CatalogItem: FC<CatalogItemProps> = ({
           <Image style={{ width: '50%' }} source={img} />
           <View style={{ flexDirection: 'column', gap: 10 }}>
             {/* Glanzings code start here */}
-            <View style={{ display: 'flex', gap: 5, flexDirection: 'row' }}>
+            <View style={{ display: 'flex', gap: 15, flexDirection: 'row' }}>
               <View style={{ ...styles.button, backgroundColor: '#ccc' }}>
                 <Image
                   style={{ width: '50%', height: '80%' }}
@@ -52,6 +52,12 @@ const CatalogItem: FC<CatalogItemProps> = ({
               <View style={{ ...styles.button, borderWidth: 1 }}>
                 <Text>2x</Text>
               </View>
+              <AntDesign
+                style={{ position: 'absolute', right: -40, bottom: 30 }}
+                name="up"
+                size={30}
+                color="#ccc"
+              />
             </View>
             {/* Glanzings code End here */}
 
