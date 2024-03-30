@@ -9,70 +9,44 @@ import {
   View,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import CatalogPreview, { CatalogPreviewProps } from './CatalogPreview';
 
-type CatalogItemProps = {
-  title: string;
-  img: ImageSourcePropType;
-  size: string;
-  material: string;
-  feature: string;
-};
-
-const CatalogItem: FC<CatalogItemProps> = ({
-  title,
-  img,
-  size,
-  material,
-  feature,
-}) => {
+const CatalogItem: FC<CatalogPreviewProps> = (props) => {
   return (
-    <Link href="/Camera" asChild>
-      <Pressable>
+    <Link href="/CatalogDetail" asChild>
+      <Pressable
+        style={{
+          position: 'relative',
+          backgroundColor: 'rgba(210, 210, 210, 0.5)',
+          borderRadius: 20,
+          padding: 24,
+        }}
+      >
         <View
           style={{
-            flexDirection: 'row',
-            marginBottom: 10,
-            marginTop: 10,
-            gap: 10,
+            ...styles.button,
             borderWidth: 1,
-            borderColor: '#ccc',
-            padding: 8,
+            position: 'absolute',
+            right: 34,
+            top: 34,
           }}
         >
-          <Image style={{ width: '50%' }} source={img} />
-          <View style={{ flexDirection: 'column', gap: 10 }}>
-            {/* Glanzings code start here */}
-            <View style={{ display: 'flex', gap: 15, flexDirection: 'row' }}>
-              <View style={{ ...styles.button, backgroundColor: '#ccc' }}>
-                <Image
-                  style={{ width: '50%', height: '80%' }}
-                  source={require('../assets/images/Glazing.png')}
-                />
-              </View>
-              <View style={{ ...styles.button, borderWidth: 1 }}>
-                <Text>2x</Text>
-              </View>
-              <AntDesign
-                style={{ position: 'absolute', right: -40, bottom: 30 }}
-                name="up"
-                size={30}
-                color="#ccc"
-              />
-            </View>
-            {/* Glanzings code End here */}
-
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{title}</Text>
-            <Text>{size}</Text>
-            <Text>{material}</Text>
-            <Text>{feature}</Text>
-            <AntDesign
-              style={{ position: 'absolute', right: -40, bottom: 30 }}
-              name="right"
-              size={30}
-              color="#ccc"
-            />
-          </View>
+          <Text>2x</Text>
         </View>
+        <AntDesign
+          style={{ display: 'none', position: 'absolute', right: 40, top: 30 }}
+          name="up"
+          size={30}
+          color="#ccc"
+        />
+        <CatalogPreview {...props} />
+
+        <AntDesign
+          style={{ position: 'absolute', right: 40, bottom: 30 }}
+          name="right"
+          size={30}
+          color="#ccc"
+        />
       </Pressable>
     </Link>
   );
