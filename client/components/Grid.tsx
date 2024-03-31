@@ -4,7 +4,7 @@ import Cell from '@/components/Cell';
 import { Grid as GridProps } from '@/data/data';
 import { FunctionComponent } from 'react';
 
-const Grid: FunctionComponent<GridProps & { magnification: number }> = ({
+const Grid: FunctionComponent<GridProps & { magnification?: number }> = ({
   magnification = 1,
   ...gridData
 }) => {
