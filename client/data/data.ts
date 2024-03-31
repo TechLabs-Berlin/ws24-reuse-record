@@ -47,11 +47,12 @@ export interface Grid {
   cells: Cell[];
 }
 
-export interface SeedWindow {
+export interface WindowData {
   grid: Grid;
+  _id?:string;
 }
 
-export const seedWindows: SeedWindow[] = [
+export const seedWindows: WindowData[] = [
   {
     grid: {
       width: 200,

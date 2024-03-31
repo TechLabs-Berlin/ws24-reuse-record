@@ -3,11 +3,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FunctionComponent, useState } from 'react';
 import { Cell } from '@/data/data';
 
-const CellComponent: FunctionComponent<Cell> = ({
+const CellComponent: FunctionComponent<Cell & { magnification: number }> = ({
   width,
   height,
   type,
   glass,
+  magnification = 1,
 }) => {
   const [activeCondition, setActiveCondition] = useState<Cell['type']>(type);
 
@@ -34,8 +35,8 @@ const CellComponent: FunctionComponent<Cell> = ({
         locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
         style={{
           ...styles.gradient,
-          width,
-          height,
+          width: width * magnification,
+          height: height * magnification,
           padding: 2,
           borderColor: '#888',
           borderWidth: activeCondition !== 'parapet' ? 2 : 0,
@@ -51,7 +52,9 @@ const CellComponent: FunctionComponent<Cell> = ({
           }}
           onPress={() => toggleCellType()}
         >
-          <Text style={{ textAlign: 'center' }}>{activeCondition} </Text>
+          {magnification > 0.9 && (
+            <Text style={{ textAlign: 'center' }}>{activeCondition} </Text>
+          )}
         </Pressable>
       </LinearGradient>
     </View>

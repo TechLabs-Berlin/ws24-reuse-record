@@ -1,10 +1,29 @@
 import CatalogItem from '@/components/CatalogItem';
 import CatalogPreview from '@/components/CatalogPreview';
 import { Text, View } from '@/components/Themed';
+import { WindowData } from '@/data/data';
+import { useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import CatalogList from '../CatalogList';
 
 const CatalogDetails = () => {
-  return (
+  const { id } = useLocalSearchParams();
+  const [data, setData] = useState<WindowData[]>([]);
+
+  const getData = async () => {
+    const response: WindowData[] = await fetch(
+      'https://ws24-reuse-record.onrender.com/windows'
+    ).then((res) => res.json());
+
+    setData(response);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return data && data.length ? (
     <View
       style={{
         display: 'flex',
@@ -17,10 +36,11 @@ const CatalogDetails = () => {
       <View style={{ width: '100%' }}>
         <CatalogPreview
           title="3X2"
-          img={require('../assets/images/WindowPreview.png')}
+          img={require('../../assets/images/WindowPreview.png')}
           size="100cm x 200cm"
           material={'frame material'}
           feature={'feature'}
+          gridData={data.filter((item) => item._id === id)[0]?.grid}
         />
       </View>
 
@@ -83,6 +103,8 @@ const CatalogDetails = () => {
       </View>
       {/* Glass elemewnt code end here */}
     </View>
+  ) : (
+    <Text>Loading....</Text>
   );
 };
 

@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 import { FC } from 'react';
+import { Grid } from '@/data/data';
+import GridComp from './Grid';
 
 export type CatalogPreviewProps = {
   title: string;
@@ -13,6 +15,8 @@ export type CatalogPreviewProps = {
   size: string;
   material: string;
   feature: string;
+  gridData: Grid;
+  id?: string;
 };
 
 const CatalogPreview: FC<CatalogPreviewProps> = ({
@@ -21,6 +25,7 @@ const CatalogPreview: FC<CatalogPreviewProps> = ({
   size,
   material,
   feature,
+  gridData,
 }) => {
   return (
     <View
@@ -32,7 +37,9 @@ const CatalogPreview: FC<CatalogPreviewProps> = ({
         gap: 10,
       }}
     >
-      <Image style={{ width: '50%' }} source={img} />
+      <View style={{ width: '40%' }}>
+        <GridComp {...gridData} magnification={0.5} />
+      </View>
       <View style={{ flexDirection: 'column', gap: 10, flex: 1 }}>
         {/* Glanzings code start here */}
         <View style={{ display: 'flex', gap: 15, flexDirection: 'row' }}>

@@ -9,6 +9,8 @@ import CatalogItem from '@/components/CatalogItem';
 import { Link } from 'expo-router';
 import { Text } from '@/components/Themed';
 import { AntDesign } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import { Grid, WindowData } from '@/data/data';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -16,6 +18,20 @@ export {
 } from 'expo-router';
 
 const CatalogList = () => {
+  const [data, setData] = useState<WindowData[]>([]);
+
+  const getData = async () => {
+    const response: WindowData[] = await fetch(
+      'https://ws24-reuse-record.onrender.com/windows'
+    ).then((res) => res.json());
+
+    setData(response);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <ScrollView>
@@ -39,64 +55,25 @@ const CatalogList = () => {
             }}
             placeholder="search"
           />
-          <CatalogItem
-            title="3X2"
-            img={require('../assets/images/WindowPreview.png')}
-            size="100cm x 200cm"
-            material={'frame material'}
-            feature={'feature'}
-          />
-          <CatalogItem
-            title="Hello"
-            img={require('../assets/images/WindowPreview.png')}
-            size="Frame size"
-            material={'frame material'}
-            feature={'feature'}
-          />
-          <CatalogItem
-            title="Hello"
-            img={require('../assets/images/WindowPreview.png')}
-            size="Frame size"
-            material={'frame material'}
-            feature={'feature'}
-          />
-
-          <CatalogItem
-            title="Hello"
-            img={require('../assets/images/WindowPreview.png')}
-            size="Frame size"
-            material={'frame material'}
-            feature={'feature'}
-          />
-          <CatalogItem
-            title="Hello"
-            img={require('../assets/images/WindowPreview.png')}
-            size="Frame size"
-            material={'frame material'}
-            feature={'feature'}
-          />
-          <CatalogItem
-            title="Hello"
-            img={require('../assets/images/WindowPreview.png')}
-            size="Frame size"
-            material={'frame material'}
-            feature={'feature'}
-          />
-
-          <CatalogItem
-            title="Hello"
-            img={require('../assets/images/WindowPreview.png')}
-            size="Frame size"
-            material={'frame material'}
-            feature={'feature'}
-          />
+          {data.map((catalog) => {
+            return (
+              <CatalogItem
+                id={catalog._id}
+                gridData={catalog.grid}
+                title="3X2"
+                img={require('../assets/images/WindowPreview.png')}
+                size={`${catalog.grid.frame.width}cm x ${catalog.grid.frame.height}cm`}
+                material={'frame material'}
+                feature={'feature'}
+              />
+            );
+          })}
         </View>
       </ScrollView>
       <Link href="/Camera" asChild>
         <Pressable
           style={{
             ...styles.buttonAdd,
-
             shadowColor: '#555', // For iOS shadow
             shadowOffset: { width: 0, height: 2 }, // For iOS shadow
             shadowOpacity: 1, // For iOS shadow

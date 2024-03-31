@@ -13,7 +13,7 @@ import CatalogPreview, { CatalogPreviewProps } from './CatalogPreview';
 
 const CatalogItem: FC<CatalogPreviewProps> = (props) => {
   return (
-    <Link href="/CatalogDetail" asChild>
+    <Link href={`/CatalogDetail/${props.id}`} asChild>
       <Pressable
         style={{
           position: 'relative',
