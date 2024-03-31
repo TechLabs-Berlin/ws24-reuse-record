@@ -6,7 +6,7 @@ import seaborn as sns
 
 
 #Import Data
-df = pd.read_csv("../Cleaned_Data.csv")
+df = pd.read_csv("../cleaned_data.csv")
 
 df_selected = df.copy()
 

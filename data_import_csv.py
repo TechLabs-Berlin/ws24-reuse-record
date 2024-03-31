@@ -17,8 +17,8 @@ columns_to_drop = ['recordid', 'images', 'renamedimages', 'newname', 'isspecial'
        'frame_material_outside', 'glazing_type']
 df.drop(columns=columns_to_drop, inplace=True)
 
-columns_to_drop2 = ['frame_colour', 'frame_surface', 'frame_material']
-df.drop(columns=columns_to_drop2, inplace=True)
+#columns_to_drop2 = ['frame_colour', 'frame_surface', 'frame_material']
+#df.drop(columns=columns_to_drop2, inplace=True)
 
 # Replace NaN with Mean
 df.replace(0, np.nan, inplace=True)
@@ -30,10 +30,10 @@ df.fillna(mean_values, inplace=True)
 #df_encoded.replace({True: 1, False: 0}, inplace=True)
 
 #Label Encoding
-#df_encoded = df.copy()
-#label_encoder = LabelEncoder()
-#for column in ["frame_colour", "frame_surface", "frame_material"]:
-    #df_encoded[column] = label_encoder.fit_transform(df_encoded[column])
+df_encoded = df.copy()
+label_encoder = LabelEncoder()
+for column in ["frame_colour", "frame_surface", "frame_material"]:
+    df_encoded[column] = label_encoder.fit_transform(df_encoded[column])
 
 # Exporting to new CSV 
-df.to_csv("cleaned_data.csv", index=False, float_format='%.2f')
+df_encoded.to_csv("cleaned_data.csv", index=False, float_format='%.2f')
