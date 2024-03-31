@@ -26,13 +26,20 @@ const CatalogDetails = () => {
 
       <View
         style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           marginHorizontal: 'auto',
-          borderWidth: 1,
-          width: '70%',
+
+          borderRadius: 10,
+          backgroundColor: '#ccc',
+          width: '80%',
           height: 200,
           marginBottom: 30,
         }}
-      ></View>
+      >
+        <Text style={{ fontSize: 25 }}>300 x 200</Text>
+      </View>
       {/* Glass Element code start here */}
       <View style={{ width: '100%' }}>
         <Text>Glass Element</Text>
