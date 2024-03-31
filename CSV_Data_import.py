@@ -6,7 +6,6 @@ df = pd.read_csv("Data.csv")
 
 #Data-Cleaning
 df.columns = df.columns.str.strip().str.replace(' ', '_').str.replace('[^\w\s]', '').str.lower()
-#important_rows = ["frame_colour", "frame_surface", "frame_material", "size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]
 for column in ["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]:
     df[column] = df[column].str.replace(',', '.').astype(float)
 
@@ -27,6 +26,4 @@ df_encoded = pd.get_dummies(df, columns=["frame_colour", "frame_surface", "frame
 df_encoded.replace({True: 1, False: 0}, inplace=True)
 
 # Exporting to new CSV 
-columns_to_export = ["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]
-columns_to_export.extend(df_encoded.columns)
-df_encoded.to_csv("Cleaned_Data.csv", columns=columns_to_export, index=False, float_format='%.2f')
+df_encoded.to_csv("Cleaned_Data.csv", index=False, float_format='%.2f')

@@ -5,7 +5,7 @@ import seaborn as sns
 import hdbscan
 
 #Import Data
-df = pd.read_csv("Cleaned_CSV.csv")
+df = pd.read_csv("Cleaned_Data.csv")
 
 # Scaling Data
 scaler = StandardScaler()
@@ -17,6 +17,7 @@ df['Cluster'] = clusterer.fit_predict(df_scaled)
 
 # Visualizing  Cluster
 sns.scatterplot(data=df, x='size_horizontal_[m]', y='size_vertical_[m]', hue='Cluster')
+sns.pairplot(df, hue='Cluster')
 plt.title('HDBSCAN Clustering')
 plt.show()
 
