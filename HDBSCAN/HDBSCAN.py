@@ -5,7 +5,7 @@ import seaborn as sns
 import hdbscan
 
 #Import Data
-df = pd.read_csv("Cleaned_Data.csv")
+df = pd.read_csv("cleaned_data.csv")
 
 # Scaling Data
 scaler = StandardScaler()
@@ -34,4 +34,4 @@ pd.set_option('display.expand_frame_repr', False)
 print(df)
 
 # Extracting as  JSON
-df.to_json("Data_Output_HDBSCAN.json", orient="records")
+df.to_json("data_output_hdbscan.json", orient="records")
