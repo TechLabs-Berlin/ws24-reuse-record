@@ -11,56 +11,55 @@ const GridConfigurator = () => {
   const [cols, setCols] = useState<number>(gridData.count.x);
   return (
     <>
-      <Text
+      <View
         style={{
-          borderWidth: 1,
-          borderColor: '#444',
-          paddingHorizontal: 12,
-          paddingVertical: 6,
-          borderRadius: 20,
-          marginVertical: 5,
+          ...styles.container,
+          backgroundColor: '#f2f2f2  ',
         }}
       >
-        {cols} x {rows}
-      </Text>
-      <ScrollView>
-        {new Array(rows).fill('').map(() => {
-          return (
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                gap: 2,
-                marginBottom: 2,
-              }}
-            >
-              {new Array(cols).fill('').map(() => {
-                return (
-                  <View style={{ width: 100, height: 100 }}>
-                    <LinearGradient
-                      colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 1 }}
-                      locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
-                      style={{ width: 100, height: 100 }}
-                    ></LinearGradient>
-                  </View>
-                );
-              })}
-            </View>
-          );
-        })}
-      </ScrollView>
+        <ScrollView>
+          {new Array(rows).fill('').map((x, i) => {
+            return (
+              <View
+                key={i}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: 2,
+                  marginBottom: 2,
+                }}
+              >
+                {new Array(cols).fill('').map((y, j) => {
+                  return (
+                    <View key={j} style={{ width: 100, height: 100 }}>
+                      <LinearGradient
+                        colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
+                        style={{ width: 100, height: 100 }}
+                      ></LinearGradient>
+                    </View>
+                  );
+                })}
+              </View>
+            );
+          })}
+        </ScrollView>
+      </View>
       <View
         style={{
           position: 'absolute',
           right: 50,
           bottom: '50%',
-          marginBottom: -30,
+          marginBottom: -70,
         }}
       >
         <Pressable
-          style={styles.customButton}
+          style={{
+            ...styles.customButton,
+            backgroundColor: '#007bff',
+          }}
           onPress={() => {
             setCols((prev) => prev + 1);
           }}
@@ -70,9 +69,7 @@ const GridConfigurator = () => {
         <Pressable
           style={{
             ...styles.customButton,
-            borderTopRightRadius: 30,
-            borderBottomRightRadius: 30,
-            backgroundColor: '#333',
+            backgroundColor: '#555555',
           }}
           onPress={() => {
             setCols((prev) => prev - 1 || 1);
@@ -91,7 +88,7 @@ const GridConfigurator = () => {
         }}
       >
         <Pressable
-          style={styles.customButton}
+          style={{ ...styles.customButton, backgroundColor: '#555555' }}
           onPress={() => {
             setRows((prev) => prev - 1 || 1);
           }}
@@ -99,7 +96,10 @@ const GridConfigurator = () => {
           <Text style={styles.buttonLabel}>-</Text>
         </Pressable>
         <Pressable
-          style={styles.customButton}
+          style={{
+            ...styles.customButton,
+            backgroundColor: '#007bff',
+          }}
           onPress={() => {
             setRows((prev) => prev + 1);
           }}
@@ -113,7 +113,8 @@ const GridConfigurator = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '70%',
+    height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   customButton: {
-    backgroundColor: 'rgb(146 159 29)',
+    borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 20,

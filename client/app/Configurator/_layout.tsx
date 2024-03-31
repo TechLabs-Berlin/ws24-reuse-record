@@ -1,10 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { useEffect, useState } from 'react';
-import { Slot } from 'expo-router';
+import { Slot, usePathname } from 'expo-router';
 import { Link } from 'expo-router';
 
 const Configurator = () => {
+  const pathname = usePathname();
   async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
@@ -38,38 +39,94 @@ const Configurator = () => {
       >
         <Link href="/Configurator/Grid" asChild>
           <Pressable>
-            <Text style={styles.tabItem}>Grid</Text>
+            <Text
+              style={{
+                ...styles.tabItem,
+                backgroundColor:
+                  pathname === '/Configurator/Grid' ? '#3498db' : '#ccc',
+              }}
+            >
+              Grid
+            </Text>
           </Pressable>
         </Link>
         <Link href="/Configurator/Layout" asChild>
           <Pressable>
-            <Text style={styles.tabItem}>Layout</Text>
+            <Text
+              style={{
+                ...styles.tabItem,
+                backgroundColor:
+                  pathname === '/Configurator/Layout' ? '#3498db' : '#ccc',
+              }}
+            >
+              Layout
+            </Text>
           </Pressable>
         </Link>
 
         <Link href="/Configurator/Type" asChild>
           <Pressable>
-            <Text style={styles.tabItem}>Type</Text>
+            <Text
+              style={{
+                ...styles.tabItem,
+                backgroundColor:
+                  pathname === '/Configurator/Type' ? '#3498db' : '#ccc',
+              }}
+            >
+              Type
+            </Text>
           </Pressable>
         </Link>
         <Link href="/Configurator/Size" asChild>
           <Pressable>
-            <Text style={styles.tabItem}>Size</Text>
+            <Text
+              style={{
+                ...styles.tabItem,
+                backgroundColor:
+                  pathname === '/Configurator/Size' ? '#3498db' : '#ccc',
+              }}
+            >
+              Size
+            </Text>
           </Pressable>
         </Link>
-        <Link href="/Configurator/Proporation" asChild>
+        <Link href="/Configurator/Proportion" asChild>
           <Pressable>
-            <Text style={styles.tabItem}>Proporation</Text>
+            <Text
+              style={{
+                ...styles.tabItem,
+                backgroundColor:
+                  pathname === '/Configurator/Proportion' ? '#3498db' : '#ccc',
+              }}
+            >
+              Proporation
+            </Text>
           </Pressable>
         </Link>
         <Link href="/Configurator/Frame" asChild>
           <Pressable>
-            <Text style={styles.tabItem}>Frame</Text>
+            <Text
+              style={{
+                ...styles.tabItem,
+                backgroundColor:
+                  pathname === '/Configurator/Frame' ? '#3498db' : '#ccc',
+              }}
+            >
+              Frame
+            </Text>
           </Pressable>
         </Link>
         <Link href="/Configurator/Glass" asChild>
           <Pressable>
-            <Text style={styles.tabItem}>Glass</Text>
+            <Text
+              style={{
+                ...styles.tabItem,
+                backgroundColor:
+                  pathname === '/Configurator/Glass' ? '#3498db' : '#ccc',
+              }}
+            >
+              Glass
+            </Text>
           </Pressable>
         </Link>
       </View>

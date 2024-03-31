@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   customButton: {
     borderRadius: 50,
-    backgroundColor: 'rgb(146 159 29)',
+
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
