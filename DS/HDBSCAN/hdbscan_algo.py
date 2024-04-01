@@ -7,9 +7,12 @@ import hdbscan
 #Import Data
 df = pd.read_csv("../cleaned_data.csv")
 
+features = ['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']
+X = df[features]
+
 # Scaling Data
 scaler = StandardScaler()
-df_scaled = scaler.fit_transform(df)
+df_scaled = scaler.fit_transform(X)
 
 # Cluster  HDBSCAN
 clusterer = hdbscan.HDBSCAN(min_cluster_size=5)
