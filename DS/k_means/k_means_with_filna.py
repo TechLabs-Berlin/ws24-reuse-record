@@ -4,12 +4,17 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# k-means with filna -1 instead of replacing NaN with mean()
 
-#Import Data
-df = pd.read_csv("../cleaned_data.csv")
+df = pd.read_csv("../original_data.csv")
 
-df_selected = df.copy()
+df['Size Vertical [m]'] = df['Size Vertical [m]'].str.replace(',', '.').fillna(-1).astype(float)
+df['Size Horizontal [m]'] = df['Size Horizontal [m]'].str.replace(',', '.').fillna(-1).astype(float)
+df['Frame Depth [cm]'] = df['Frame Depth [cm]'].str.replace(',', '.').fillna(-1).astype(float)
 
+selected_columns = ['Size Horizontal [m]', 'Size Vertical [m]', 'Frame Depth [cm]']
+
+df_selected = df[selected_columns]
 scaler = StandardScaler()
 df_scaled = scaler.fit_transform(df_selected)
 
@@ -27,25 +32,19 @@ plt.xlabel('Anzahl der Cluster')
 plt.ylabel('WCSS')  # Within-Cluster-Sum-of-Squares
 plt.show()
 
-# Define Number of  Cluster
-optimal_num_clusters = None
-max_dif = -1
+plt.close()
 
-for i in range(1, len(wcss)):
-    dif = wcss[i-1] - wcss[i]
-    if dif > max_dif:
-        max_dif = dif
-        optimal_num_clusters = i + 1
+# Number of Cluster
+num_clusters = 3
 
 # K-Means Clustering
-kmeans = KMeans(n_clusters=optimal_num_clusters, init='k-means++', max_iter=300, n_init=10, random_state=0)
 df_selected['Cluster'] = kmeans.fit_predict(df_scaled)
 
-# Cluster-Statistik
+# Cluster-Statistic
 print(df_selected['Cluster'].value_counts())
 
 # Scatterplot
-df_scaled_with_cluster = pd.DataFrame(df_scaled, columns=['Dimension{}'.format(i) for i in range(df_scaled.shape[1])])
+df_scaled_with_cluster = pd.DataFrame(df_scaled, columns=['Dimension1', 'Dimension2', 'Dimension3'])
 df_scaled_with_cluster['Cluster'] = df_selected['Cluster']
 sns.scatterplot(x='Dimension1', y='Dimension2', hue='Cluster', data=df_scaled_with_cluster)
 plt.title('K-Means Clustering')
@@ -60,6 +59,3 @@ pd.set_option('display.precision', 2)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 print(df_selected)
-
-# extracting Data as  JSON
-df_selected.to_json("data_output_k_means.json", orient="records")
