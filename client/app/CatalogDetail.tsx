@@ -2,87 +2,101 @@ import CatalogItem from '@/components/CatalogItem';
 import CatalogPreview from '@/components/CatalogPreview';
 import { Text, View } from '@/components/Themed';
 import { StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { SeedWindow } from '@/data/data';
 
 const CatalogDetails = () => {
+  const [data, setData] = useState<SeedWindow>();
+  const getData = async () => {
+    const response = await fetch(
+      `https://ws24-reuse-record.onrender.com/windows/660b3650498a45ecae83e719`
+    ).then((res) => res.json());
+    setData(response);
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
-    <View
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 10,
-        padding: 20,
-      }}
-    >
-      <View style={{ width: '100%' }}>
-        <CatalogPreview
-          title="3X2"
-          img={require('../assets/images/WindowPreview.png')}
-          size="100cm x 200cm"
-          material={'frame material'}
-          feature={'feature'}
-        />
-      </View>
-
+    data && (
       <View
         style={{
           display: 'flex',
-          justifyContent: 'center',
+          flexDirection: 'column',
           alignItems: 'center',
-          marginHorizontal: 'auto',
-
-          borderRadius: 10,
-          backgroundColor: '#ccc',
-          width: '80%',
-          height: 200,
-          marginBottom: 30,
+          gap: 10,
+          padding: 20,
         }}
       >
-        <Text style={{ fontSize: 25 }}>300 x 200</Text>
-      </View>
-      {/* Glass Element code start here */}
-      <View style={{ width: '100%' }}>
-        <Text>Glass Element</Text>
+        <View style={{ width: '100%' }}>
+          <CatalogPreview
+            title={`${data.grid.count.x}x${data.grid.count.y}`}
+            img={require('../assets/images/WindowPreview.png')}
+            size={`${data.grid.frame.width}x${data.grid.frame.height}`}
+            material={data.grid.frame.material ?? '/'}
+            feature={'feature'}
+          />
+        </View>
+
         <View
           style={{
             display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 'auto',
+
+            borderRadius: 10,
+            backgroundColor: '#ccc',
+            width: '80%',
+            height: 200,
+            marginBottom: 30,
           }}
         >
+          <Text style={{ fontSize: 25 }}>300 x 200</Text>
+        </View>
+        {/* Glass Element code start here */}
+        <View style={{ width: '100%' }}>
+          <Text>Glass Element</Text>
           <View
             style={{
               display: 'flex',
-              flexDirection: 'column',
-              marginVertical: 10,
-              gap: 5,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
             }}
           >
-            <View style={{ ...styles.GlassELement, marginBottom: 10 }}>
-              <Text style={styles.text}>3x</Text>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                marginVertical: 10,
+                gap: 5,
+              }}
+            >
+              <View style={{ ...styles.GlassELement, marginBottom: 10 }}>
+                <Text style={styles.text}>3x</Text>
+              </View>
+              <Text>W 70 cm</Text>
+              <Text>h 90 cm</Text>
             </View>
-            <Text>W 70 cm</Text>
-            <Text>h 90 cm</Text>
-          </View>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              marginVertical: 10,
-              gap: 5,
-            }}
-          >
-            <View style={{ ...styles.GlassELement, marginBottom: 10 }}>
-              <Text style={styles.text}>3x</Text>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                marginVertical: 10,
+                gap: 5,
+              }}
+            >
+              <View style={{ ...styles.GlassELement, marginBottom: 10 }}>
+                <Text style={styles.text}>3x</Text>
+              </View>
+              <Text>W 70 cm</Text>
+              <Text>h 90 cm</Text>
             </View>
-            <Text>W 70 cm</Text>
-            <Text>h 90 cm</Text>
           </View>
         </View>
+        {/* Glass elemewnt code end here */}
       </View>
-      {/* Glass elemewnt code end here */}
-    </View>
+    )
   );
 };
 
