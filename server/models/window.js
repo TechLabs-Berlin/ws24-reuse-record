@@ -64,7 +64,7 @@ const windowSchema = new Schema({
                 type: Number,
                 // required: [true, "frame must have a width"]
             },
-            hight: {
+            height: {
                 type: Number,
                 // required: [true, "frame must have a hight"]
             },
