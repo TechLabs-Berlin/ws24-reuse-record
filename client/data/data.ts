@@ -49,11 +49,12 @@ export interface Grid {
 
 export interface SeedWindow {
   grid: Grid;
+  _id: string;
 }
 
 export const seedWindows: SeedWindow[] = [
   {
-    grid: {
+    _id: "saldjfsdkji", grid: {
       width: 200,
       height: 200,
       count: {
@@ -163,7 +164,7 @@ export const seedWindows: SeedWindow[] = [
   },
 
   {
-    grid: {
+    _id: "saldjfsdkji", grid: {
       width: 100,
       height: 200,
       count: {
@@ -223,7 +224,7 @@ export const seedWindows: SeedWindow[] = [
   },
 
   {
-    grid: {
+    _id: "saldjfsdkji", grid: {
       width: 50,
       height: 100,
       count: {

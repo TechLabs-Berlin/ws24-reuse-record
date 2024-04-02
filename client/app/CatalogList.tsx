@@ -52,15 +52,19 @@ const CatalogList = () => {
             placeholder="search"
           />
           {data.map((catalog) => {
-            console.log(catalog.grid.frame);
+            console.log(catalog._id);
             return (
-              <CatalogItem
-                title={`${catalog.grid.count.x}x${catalog.grid.count.y}`}
-                img={require('../assets/images/WindowPreview.png')}
-                size={`${catalog.grid.frame.width}cm x ${catalog.grid.frame.height}cm`}
-                material={catalog.grid.frame.material ?? '/'}
-                feature={catalog.grid.frame.surface ?? '/'}
-              />
+              <Link href={`/CatalogDetail/${catalog._id}`} asChild>
+                <Pressable>
+                  <CatalogItem
+                    title={`${catalog.grid.count.x}x${catalog.grid.count.y}`}
+                    img={require('../assets/images/WindowPreview.png')}
+                    size={`${catalog.grid.frame.width}cm x ${catalog.grid.frame.height}cm`}
+                    material={catalog.grid.frame.material ?? '/'}
+                    feature={catalog.grid.frame.surface ?? '/'}
+                  />
+                </Pressable>
+              </Link>
             );
           })}
         </View>

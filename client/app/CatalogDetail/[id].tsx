@@ -4,12 +4,15 @@ import { Text, View } from '@/components/Themed';
 import { StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import { SeedWindow } from '@/data/data';
+import { useLocalSearchParams } from 'expo-router';
 
 const CatalogDetails = () => {
   const [data, setData] = useState<SeedWindow>();
+  const params = useLocalSearchParams();
+  console.log(params);
   const getData = async () => {
     const response = await fetch(
-      `https://ws24-reuse-record.onrender.com/windows/660b3650498a45ecae83e719`
+      `https://ws24-reuse-record.onrender.com/windows/${params.id}`
     ).then((res) => res.json());
     setData(response);
   };
@@ -30,7 +33,7 @@ const CatalogDetails = () => {
         <View style={{ width: '100%' }}>
           <CatalogPreview
             title={`${data.grid.count.x}x${data.grid.count.y}`}
-            img={require('../assets/images/WindowPreview.png')}
+            img={require('../../assets/images/WindowPreview.png')}
             size={`${data.grid.frame.width}x${data.grid.frame.height}`}
             material={data.grid.frame.material ?? '/'}
             feature={'feature'}
