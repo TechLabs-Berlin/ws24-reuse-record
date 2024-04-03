@@ -1,6 +1,7 @@
 const _ = require('lodash');
 
-export function windowCalc(input) {
+
+function windowCalc(input) {
 
     // Functions
     function adjustArray(count, factor, add) {
@@ -103,11 +104,10 @@ export function windowCalc(input) {
     // Calculations
     for (let i = 0; i < result.grid.cells.length; i++) {
         // Merges the input object with the default object to set default values for missing properties
-        console.log(result.grid.cells[i]);
         result.grid.cells[i] = _.merge({}, defaultCell, result.grid.cells[i]);
-        console.log(result.grid.cells[i]);
 
-        let cell = result.grid.cells[i]; // Get the current cell
+        // Get the current cell
+        let cell = result.grid.cells[i];
 
         // for now without factor
         cell.width = result.grid.width / result.grid.count.x;
@@ -141,34 +141,8 @@ export function windowCalc(input) {
 }
 
 
-let inputObject = {
-    grid: {
-        count: {
-            x: 2,
-            y: 2
-        },
-        frame: {
-            width: 50,
-            height: 50
-        },
-        cells: [
-            { type: "openable" },
-            { type: "openable" },
-            { type: "fixed" },
-            { type: "fixed" }
-        ]
-    }
-
+module.exports = {
+    windowCalc
 };
-
-
-
-// const resultObject = windowCalc(inputObject);
-// console.log(inputObject);
-// console.log(JSON.stringify(resultObject, null, 2));
-
-
-
-
 
 

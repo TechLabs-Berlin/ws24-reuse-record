@@ -62,25 +62,29 @@ const windowSchema = new Schema({
             // Measurements
             width: {
                 type: Number,
-                // required: [true, "frame must have a width"]
+                // required: [true, "grid.frame must have a width"]
             },
             height: {
                 type: Number,
-                // required: [true, "frame must have a hight"]
+                // required: [true, "grid.frame must have a hight"]
             },
 
             // Materiality
             material: {
                 type: String,
-                // required: [true, "frame must have a material"]
+                // required: [true, "grid.frame must have a material"]
             },
             surface: {
                 type: String,
-                // required: [true, "frame must have a surface"]
+                // required: [true, "grid.frame must have a surface"]
             },
             colour: {
                 type: String,
-                // required: [true, "frame must have a colour"]
+                // required: [true, "grid.frame must have a colour"]
+            },
+            uValue: {
+                type: Number,
+                // required: [true, "grid.frame must have a uValue"]
             },
 
             //    Sub
@@ -89,19 +93,19 @@ const windowSchema = new Schema({
                 // Measurements
                 width: {
                     type: Number,
-                    // required: [true, "frame must have a width"]
+                    // required: [true, "grid.profile must have a width"]
                 },
                 offsetOutXY: {
                     type: Number,
-                    // required: [true, "frame must have an offsetOutXY:"]
+                    // required: [true, "grid.profile must have an offsetOutXY:"]
                 },
                 offsetInXY: {
                     type: Number,
-                    // required: [true, "frame must have an offsetInXY:"]
+                    // required: [true, "grid.profile must have an offsetInXY:"]
                 },
                 depth: {
                     type: Number,
-                    // required: [true, "frame must have a depth"]
+                    // required: [true, "grid.profile must have a depth"]
                 }
             }
         },
@@ -131,25 +135,29 @@ const windowSchema = new Schema({
                     // Measurements
                     width: {
                         type: Number,
-                        // required: [true, "frame must have a width"]
+                        // required: [true, "cell.frame must have a width"]
                     },
                     height: {
                         type: Number,
-                        // required: [true, "frame must have a height"]
+                        // required: [true, "cell.frame must have a height"]
                     },
 
                     // Materiality
                     material: {
                         type: String,
-                        // required: [true, "frame must have a material"]
+                        // required: [true, "cell.frame must have a material"]
                     },
                     surface: {
                         type: String,
-                        // required: [true, "frame must have a surface"]
+                        // required: [true, "cell.frame must have a surface"]
                     },
                     colour: {
                         type: String,
-                        // required: [true, "frame must have a colour"]
+                        // required: [true, "cell.frame must have a colour"]
+                    },
+                    uValue: {
+                        type: Number,
+                        // required: [true, "cell.frame must have a uValue"]
                     },
 
                     //    Sub
@@ -158,19 +166,19 @@ const windowSchema = new Schema({
                         // Measurements
                         width: {
                             type: Number,
-                            // required: [true, "frame must have a width"]
+                            // required: [true, "cell.profile must have a width"]
                         },
                         offsetOutXY: {
                             type: Number,
-                            // required: [true, "frame must have an offsetOutXY:"]
+                            // required: [true, "cell.profile must have an offsetOutXY:"]
                         },
                         offsetInXY: {
                             type: Number,
-                            // required: [true, "frame must have an offsetInXY:"]
+                            // required: [true, "cell.profile must have an offsetInXY:"]
                         },
                         depth: {
                             type: Number,
-                            // required: [true, "frame must have a depth"]
+                            // required: [true, "cell.profile must have a depth"]
                         }
                     }
                 },
@@ -179,11 +187,15 @@ const windowSchema = new Schema({
                     // Measurements
                     width: {
                         type: Number,
-                        // required: [true, "glas must have a width"]
+                        // required: [true, "glass must have a width"]
                     },
                     height: {
                         type: Number,
-                        // required: [true, "glas must have a hight"]
+                        // required: [true, "glass must have a hight"]
+                    },
+                    uValue: {
+                        type: Number,
+                        // required: [true, "glass must have a uValue"]
                     },
 
                     // possible entries ["single", "double", "triple"]
