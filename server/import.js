@@ -7,6 +7,10 @@ let inputObject = {
             x: 2,
             y: 2
         },
+        factor: {
+            "x": [1, 2],
+            "y": [1, 2],
+        },
         frame: {
             width: 100,
             height: 100
@@ -14,7 +18,7 @@ let inputObject = {
         cells: [
             { type: "openable" },
             { type: "openable" },
-            { type: "fixed" },
+            { type: "null" },
             { type: "fixed" }
         ]
     }

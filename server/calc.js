@@ -68,6 +68,10 @@ function windowCalc(input) {
     adjustArray(result.grid.count.x, result.grid.factor.x, 1);
     adjustArray(result.grid.count.y, result.grid.factor.y, 1);
 
+    // Calulates the sums of the x & y factors
+    result.grid.factor.sum = {};
+    result.grid.factor.sum.x = result.grid.factor.x.reduce((acc, curr) => acc + curr, 0);
+    result.grid.factor.sum.y = result.grid.factor.y.reduce((acc, curr) => acc + curr, 0);
 
     // CELL LEVEL
 
@@ -109,22 +113,30 @@ function windowCalc(input) {
         // Get the current cell
         let cell = result.grid.cells[i];
 
-        // for now without factor
-        cell.width = result.grid.width / result.grid.count.x;
-        cell.height = result.grid.height / result.grid.count.y;
+        // Calcutate resulting factors
+        // result.grid.factor.res = {};
+        // result.grid.factor.res.x[i] = result.grid.factor.x[i] / result.grid.factor.sum.x;
+        // result.grid.factor.res.y[i] = result.grid.factor.y[i] / result.grid.factor.sum.y;
+        // console.log(result.grid.factor.res);
+
+        // Calculate cell width and hight
+        cell.width = result.grid.width / result.grid.factor.x[i] / result.grid.factor.sum.x;
+        cell.height = result.grid.height / result.grid.factor.y[i] / result.grid.factor.sum.y;
+        console.log(cell.width);
 
         if (cell.type === "openable") {
             cell.frame.width = cell.width - result.grid.frame.profile.offsetInXY * 2 + cell.frame.profile.offsetOutXY * 2;
             cell.frame.height = cell.height - result.grid.frame.profile.offsetInXY * 2 + cell.frame.profile.offsetOutXY * 2;
 
             // take properties from grid.frame
-            cell.frame.material = result.grid.frame.material;
-            cell.frame.surface = result.grid.frame.surface;
-            cell.frame.colour = result.grid.frame.colour;
-            cell.frame.profile.width = result.grid.frame.profile.width;
-            cell.frame.profile.offsetOutXY = result.grid.frame.profile.offsetOutXY;
-            cell.frame.profile.offsetInXY = result.grid.frame.profile.offsetInXY;
-            cell.frame.profile.depth = result.grid.frame.profile.depth;
+            const { material, surface, colour, profile } = result.grid.frame;
+
+            cell.frame = {
+                material,
+                surface,
+                colour,
+                profile: { ...profile }
+            };
 
             cell.glass.width = cell.width - result.grid.frame.profile.offsetInXY * 2 - cell.frame.profile.offsetInXY;
             cell.glass.height = cell.height - result.grid.frame.profile.offsetInXY * 2 - cell.frame.profile.offsetInXY;
@@ -133,6 +145,9 @@ function windowCalc(input) {
 
             cell.glass.width = cell.width - result.grid.frame.profile.offsetInXY * 2;
             cell.glass.height = cell.height - result.grid.frame.profile.offsetInXY * 2;
+        } else if (cell.type === "null") {
+            const { type, ...other } = cell;
+            result.grid.cells[i] = { type };
         }
     }
 
