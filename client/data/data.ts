@@ -82,7 +82,7 @@ export const seedWindows: SeedWindow[] = [
         {
           width: 100,
           height: 100,
-          type: 'parapet',
+          type: 'fixed',
           frame: {
             width: 92,
             height: 92,

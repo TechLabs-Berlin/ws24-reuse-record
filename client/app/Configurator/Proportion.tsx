@@ -210,6 +210,12 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     padding: 10,
   },
+  Btn: {
+    borderWidth: 2,
+    borderRadius: 50,
+    padding: 10,
+    backgroundColor: 'blue',
+  },
 });
 
 export default GridProportion;

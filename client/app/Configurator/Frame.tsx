@@ -40,7 +40,7 @@ const WindowFrame = () => {
                   style={{
                     ...styles.Btn,
                     backgroundColor:
-                      settings.material === material ? '#9f6b1d' : '#ccc',
+                      settings.material === material ? '#3498db' : '#ccc',
                   }}
                 >
                   <Text>{material}</Text>
@@ -59,7 +59,7 @@ const WindowFrame = () => {
                   style={{
                     ...styles.Btn,
                     backgroundColor:
-                      settings.surface === surface ? '#9f6b1d' : '#ccc',
+                      settings.surface === surface ? '#3498db' : '#ccc',
                   }}
                 >
                   <Text>{surface}</Text>

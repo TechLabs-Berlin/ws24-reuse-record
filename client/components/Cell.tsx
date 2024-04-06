@@ -17,8 +17,6 @@ const CellComponent: FunctionComponent<Cell> = ({
         case 'openable':
           return 'fixed';
         case 'fixed':
-          return 'parapet';
-        case 'parapet':
           return 'openable';
       }
 
@@ -38,7 +36,7 @@ const CellComponent: FunctionComponent<Cell> = ({
           height,
           padding: 2,
           borderColor: '#888',
-          borderWidth: activeCondition !== 'parapet' ? 2 : 0,
+          borderWidth: 2,
         }}
       >
         <Pressable
