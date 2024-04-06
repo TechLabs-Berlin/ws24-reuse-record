@@ -31,13 +31,13 @@ const GridConfigurator = () => {
               >
                 {new Array(cols).fill('').map((y, j) => {
                   return (
-                    <View key={j} style={{ width: 100, height: 100 }}>
+                    <View key={j} style={{ width: 50, height: 50 }}>
                       <LinearGradient
                         colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
-                        style={{ width: 100, height: 100 }}
+                        style={{ width: 50, height: 50 }}
                       ></LinearGradient>
                     </View>
                   );
@@ -61,7 +61,7 @@ const GridConfigurator = () => {
             backgroundColor: '#007bff',
           }}
           onPress={() => {
-            setCols((prev) => prev + 1);
+            setCols((prev) => (prev < 3 ? prev + 1 : prev));
           }}
         >
           <Text style={styles.buttonLabel}>+</Text>
@@ -101,7 +101,7 @@ const GridConfigurator = () => {
             backgroundColor: '#007bff',
           }}
           onPress={() => {
-            setRows((prev) => prev + 1);
+            setRows((prev) => (prev < 3 ? prev + 1 : prev));
           }}
         >
           <Text style={styles.buttonLabel}>+</Text>
@@ -114,7 +114,6 @@ const GridConfigurator = () => {
 const styles = StyleSheet.create({
   container: {
     width: '70%',
-    height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
   },
