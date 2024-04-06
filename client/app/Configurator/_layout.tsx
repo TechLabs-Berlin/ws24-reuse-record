@@ -1,13 +1,22 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { useEffect, useState } from 'react';
-import { Slot, usePathname } from 'expo-router';
+import { useEffect } from 'react';
+import { Slot, usePathname, useRouter } from 'expo-router';
 import { Link } from 'expo-router';
 import ActionBtn from '@/components/ActionBtn';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const navItems = [
+  'Grid',
+  'Layout',
+  'Type',
+  'Size',
+  'Proportion',
+  'Frame',
+  'Glass',
+];
 
 const Configurator = () => {
-  const insets = useSafeAreaInsets();
+  const router = useRouter();
   const pathname = usePathname();
   async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(
@@ -25,6 +34,13 @@ const Configurator = () => {
       resetScreenOrientation();
     };
   }, []);
+  const goToNextPage = () => {
+    const currentPage = pathname.replace('/Configurator/', '');
+    const currentPageNumber = navItems.indexOf(currentPage);
+    const nextPage = navItems[currentPageNumber + 1];
+    console.log(nextPage);
+    router.push(`/Configurator/${nextPage}`);
+  };
   return (
     <View
       style={{
@@ -46,7 +62,7 @@ const Configurator = () => {
               style={{
                 ...styles.tabItem,
                 backgroundColor:
-                  pathname === '/Configurator/Grid' ? '#3498db' : '#ccc',
+                  pathname === '/Configurator/Grid' ? '#74b8eb' : '#ccc',
               }}
             >
               Grid
@@ -59,21 +75,20 @@ const Configurator = () => {
               style={{
                 ...styles.tabItem,
                 backgroundColor:
-                  pathname === '/Configurator/Layout' ? '#3498db' : '#ccc',
+                  pathname === '/Configurator/Layout' ? '#74b8eb' : '#ccc',
               }}
             >
               Layout
             </Text>
           </Pressable>
         </Link>
-
         <Link href="/Configurator/Type" asChild>
           <Pressable>
             <Text
               style={{
                 ...styles.tabItem,
                 backgroundColor:
-                  pathname === '/Configurator/Type' ? '#3498db' : '#ccc',
+                  pathname === '/Configurator/Type' ? '#74b8eb' : '#ccc',
               }}
             >
               Type
@@ -86,7 +101,7 @@ const Configurator = () => {
               style={{
                 ...styles.tabItem,
                 backgroundColor:
-                  pathname === '/Configurator/Size' ? '#3498db' : '#ccc',
+                  pathname === '/Configurator/Size' ? '#74b8eb' : '#ccc',
               }}
             >
               Size
@@ -99,7 +114,7 @@ const Configurator = () => {
               style={{
                 ...styles.tabItem,
                 backgroundColor:
-                  pathname === '/Configurator/Proportion' ? '#3498db' : '#ccc',
+                  pathname === '/Configurator/Proportion' ? '#74b8eb' : '#ccc',
               }}
             >
               Proporation
@@ -112,7 +127,7 @@ const Configurator = () => {
               style={{
                 ...styles.tabItem,
                 backgroundColor:
-                  pathname === '/Configurator/Frame' ? '#3498db' : '#ccc',
+                  pathname === '/Configurator/Frame' ? '#74b8eb' : '#ccc',
               }}
             >
               Frame
@@ -125,7 +140,7 @@ const Configurator = () => {
               style={{
                 ...styles.tabItem,
                 backgroundColor:
-                  pathname === '/Configurator/Glass' ? '#3498db' : '#ccc',
+                  pathname === '/Configurator/Glass' ? '#74b8eb' : '#ccc',
               }}
             >
               Glass
@@ -144,7 +159,7 @@ const Configurator = () => {
       >
         <Slot />
       </View>
-      <ActionBtn />
+      <ActionBtn onNext={goToNextPage} />
     </View>
   );
 };

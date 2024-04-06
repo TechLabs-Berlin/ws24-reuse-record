@@ -1,6 +1,6 @@
 import { Pressable, View, StyleSheet } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -8,9 +8,11 @@ export {
 } from 'expo-router';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FC } from 'react';
 
-const ActionBtn = () => {
+const ActionBtn: FC<{ onNext: () => void }> = ({ onNext }) => {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
 
   return (
     <View
@@ -28,24 +30,28 @@ const ActionBtn = () => {
         paddingLeft: 20,
       }}
     >
-      <Link href="#">
-        <Pressable style={styles.button}>
-          <AntDesign name="left" size={30} color="#555" />
-        </Pressable>
-      </Link>
-      <Link href="#">
-        <Pressable
-          style={{
-            ...styles.button,
-            backgroundColor: '#3498db',
-            padding: 20,
-            borderWidth: 0,
-          }}
-        >
-          <AntDesign name="arrowright" size={30} color="#fff" />
-        </Pressable>
-      </Link>
-      <Link href="#">
+      <Pressable
+        style={styles.button}
+        onPress={() => {
+          router.back();
+        }}
+      >
+        <AntDesign name="left" size={30} color="#555" />
+      </Pressable>
+
+      <Pressable
+        style={{
+          ...styles.button,
+          backgroundColor: '#3498db',
+          padding: 20,
+          borderWidth: 0,
+        }}
+        onPress={onNext}
+      >
+        <AntDesign name="arrowright" size={30} color="#fff" />
+      </Pressable>
+
+      <Link href="/CatalogList" asChild>
         <Pressable style={styles.button}>
           <AntDesign name="close" size={30} color="#555" />
         </Pressable>

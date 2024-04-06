@@ -20,7 +20,7 @@ const GridConfigurator = () => {
       <View
         style={{
           ...styles.container,
-          backgroundColor: '#f2f2f2  ',
+          backgroundColor: '#f2f2f2',
         }}
       >
         <ScrollView>
