@@ -3,8 +3,11 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { useEffect, useState } from 'react';
 import { Slot, usePathname } from 'expo-router';
 import { Link } from 'expo-router';
+import ActionBtn from '@/components/ActionBtn';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Configurator = () => {
+  const insets = useSafeAreaInsets();
   const pathname = usePathname();
   async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(
@@ -141,6 +144,7 @@ const Configurator = () => {
       >
         <Slot />
       </View>
+      <ActionBtn />
     </View>
   );
 };

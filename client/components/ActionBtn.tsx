@@ -2,50 +2,52 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
+
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 const ActionBtn = () => {
+  const insets = useSafeAreaInsets();
+
   return (
     <View
       style={{
+        borderLeftWidth: 1,
+        borderLeftColor: '#ccc',
+        width: 'auto',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'center',
-        gap: 10,
+        alignItems: 'center',
+        gap: 20,
+        height: '100%',
+        paddingRight: insets.right,
+        paddingLeft: 20,
       }}
     >
       <Link href="#">
-        <Pressable>
-          <AntDesign
-            style={{ position: 'absolute', right: 40, bottom: 30 }}
-            name="left"
-            size={30}
-            color="#ccc"
-          />
+        <Pressable style={styles.button}>
+          <AntDesign name="left" size={30} color="#555" />
         </Pressable>
       </Link>
       <Link href="#">
-        <Pressable>
-          <AntDesign
-            style={{ position: 'absolute', right: 40, bottom: 30 }}
-            name="right"
-            size={30}
-            color="#ccc"
-          />
+        <Pressable
+          style={{
+            ...styles.button,
+            backgroundColor: '#3498db',
+            padding: 20,
+            borderWidth: 0,
+          }}
+        >
+          <AntDesign name="arrowright" size={30} color="#fff" />
         </Pressable>
       </Link>
       <Link href="#">
-        <Pressable>
-          <AntDesign
-            style={{ position: 'absolute', right: 40, bottom: 30 }}
-            name="right"
-            size={30}
-            color="#ccc"
-          />
-        </Pressable>
-      </Link>
-      <Link href="#">
-        <Pressable>
-          {' '}
-          <FontAwesome name="times" size={24} color="#fff" />
+        <Pressable style={styles.button}>
+          <AntDesign name="close" size={30} color="#555" />
         </Pressable>
       </Link>
     </View>
@@ -53,11 +55,17 @@ const ActionBtn = () => {
 };
 const styles = StyleSheet.create({
   button: {
+    backgroundColor: '#eee',
     borderRadius: 50,
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#999',
+    padding: 10,
+    shadowColor: '#555', // For iOS shadow
+    shadowOffset: { width: 0, height: 2 }, // For iOS shadow
+    shadowOpacity: 1, // For iOS shadow
+    shadowRadius: 4, // For iOS shadow
+    elevation: 6, // For Android shadow
+    opacity: 0.9,
   },
   buttonIcon: {
     paddingRight: 8,
@@ -80,3 +88,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#555',
   },
 });
+
+export default ActionBtn;

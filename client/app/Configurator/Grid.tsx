@@ -4,6 +4,12 @@ import { seedWindows } from '@/data/data';
 import Grid from '@/components/Grid';
 import { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import ActionBtn from '@/components/ActionBtn';
+
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
 
 const gridData = seedWindows[0].grid;
 const GridConfigurator = () => {
