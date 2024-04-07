@@ -9,21 +9,25 @@ import { windowCalc } from '@/helper/calc';
 
 const navItems = ['Grid', 'Type', 'Size', 'Proportion', 'Frame', 'Glass'];
 
+const defaultWindowData = {
+  grid: {
+    width: 200,
+    height: 200,
+    factor: { x: [1], y: [1] },
+    count: { x: 1, y: 1 },
+  },
+};
 export const WindowDataContext = createContext<{
-  windowData: Partial<Grid>;
+  windowData: Grid;
   setWindowData: React.Dispatch<any>;
-}>({ windowData: {}, setWindowData: () => {} });
+}>({
+  windowData: windowCalc(defaultWindowData).grid,
+  setWindowData: () => {},
+});
 
 const Configurator = () => {
-  const [windowData, setWindowData] = useState<Partial<Grid>>(
-    windowCalc({
-      grid: {
-        width: 200,
-        height: 200,
-        factor: { x: [1], y: [1] },
-        count: { x: 1, y: 1 },
-      },
-    }).grid
+  const [windowData, setWindowData] = useState<Grid>(
+    windowCalc(defaultWindowData).grid
   );
   const router = useRouter();
   const pathname = usePathname();

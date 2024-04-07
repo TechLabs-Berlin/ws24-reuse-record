@@ -8,17 +8,16 @@ import {
   Pressable,
 } from 'react-native';
 
-import { seedWindows } from '@/data/data';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
-const gridData = seedWindows[0].grid;
+import { WindowDataContext } from './_layout';
 
-const rows = gridData.count.y;
-const cols = gridData.count.x;
 const GridProportion = () => {
-  const [rowsFactor, setRowsFactor] = useState<number[]>(gridData.factor.y);
-  const [colsFactor, setColsFactor] = useState<number[]>(gridData.factor.x);
+  const { windowData, setWindowData } = useContext(WindowDataContext);
+  const [rowsFactor, setRowsFactor] = useState<number[]>(windowData.factor.y);
+  const [colsFactor, setColsFactor] = useState<number[]>(windowData.factor.x);
+
   return (
     <>
       <ScrollView style={{ paddingTop: 10 }}>
@@ -28,7 +27,7 @@ const GridProportion = () => {
             padding: 10,
           }}
         >
-          {new Array(rows).fill('').map((y, j) => {
+          {new Array(windowData.count.y).fill('').map((y, j) => {
             return (
               <View
                 key={j}
@@ -39,7 +38,7 @@ const GridProportion = () => {
                   marginBottom: 2,
                 }}
               >
-                {new Array(cols).fill('').map((x, i) => {
+                {new Array(windowData.count.x).fill('').map((x, i) => {
                   return (
                     <View
                       key={i}
@@ -67,7 +66,7 @@ const GridProportion = () => {
         </View>
       </ScrollView>
       <View style={{ position: 'absolute', right: 25, top: 0, marginTop: 20 }}>
-        {new Array(rows).fill('').map((x, i) => {
+        {new Array(windowData.count.y).fill('').map((x, i) => {
           return (
             <View
               key={i}
@@ -125,7 +124,7 @@ const GridProportion = () => {
           left: 0,
         }}
       >
-        {new Array(cols).fill('').map((x, i) => {
+        {new Array(windowData.count.x).fill('').map((x, i) => {
           return (
             <View
               style={{
