@@ -2,12 +2,16 @@ import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Grid from '@/components/Grid';
 import { seedWindows } from '@/data/data';
+import { useContext } from 'react';
+import { WindowDataContext } from './_layout';
 const gridData = seedWindows[0].grid;
 
 const WindowType = () => {
+  const { windowData, setWindowData } = useContext(WindowDataContext);
+  console.log(windowData);
   return (
     <>
-      <Grid {...gridData} />
+      <Grid {...windowData} />
     </>
   );
 };

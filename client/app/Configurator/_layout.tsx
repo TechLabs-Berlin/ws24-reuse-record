@@ -1,21 +1,30 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Slot, usePathname, useRouter } from 'expo-router';
 import { Link } from 'expo-router';
 import ActionBtn from '@/components/ActionBtn';
+import { Grid } from '@/data/data';
+import { windowCalc } from '@/helper/calc';
 
-const navItems = [
-  'Grid',
-  'Layout',
-  'Type',
-  'Size',
-  'Proportion',
-  'Frame',
-  'Glass',
-];
+const navItems = ['Grid', 'Type', 'Size', 'Proportion', 'Frame', 'Glass'];
+
+export const WindowDataContext = createContext<{
+  windowData: Partial<Grid>;
+  setWindowData: React.Dispatch<any>;
+}>({ windowData: {}, setWindowData: () => {} });
 
 const Configurator = () => {
+  const [windowData, setWindowData] = useState<Partial<Grid>>(
+    windowCalc({
+      grid: {
+        width: 200,
+        height: 200,
+        factor: { x: [1], y: [1] },
+        count: { x: 1, y: 1 },
+      },
+    }).grid
+  );
   const router = useRouter();
   const pathname = usePathname();
   async function changeScreenOrientation() {
@@ -39,6 +48,7 @@ const Configurator = () => {
     const currentPageNumber = navItems.indexOf(currentPage);
     const nextPage = navItems[currentPageNumber + 1];
     console.log(nextPage);
+    // @ts-ignore
     router.push(`/Configurator/${nextPage}`);
   };
   return (
@@ -66,19 +76,6 @@ const Configurator = () => {
               }}
             >
               Grid
-            </Text>
-          </Pressable>
-        </Link>
-        <Link href="/Configurator/Layout" asChild>
-          <Pressable>
-            <Text
-              style={{
-                ...styles.tabItem,
-                backgroundColor:
-                  pathname === '/Configurator/Layout' ? '#74b8eb' : '#ccc',
-              }}
-            >
-              Layout
             </Text>
           </Pressable>
         </Link>
@@ -157,15 +154,17 @@ const Configurator = () => {
           height: '100%',
         }}
       >
-        <Slot />
+        <WindowDataContext.Provider value={{ windowData, setWindowData }}>
+          <Slot />
+        </WindowDataContext.Provider>
       </View>
       <ActionBtn onNext={goToNextPage} />
     </View>
   );
 };
 
-export const styles = StyleSheet.create({
-  tabItem: { fontSize: 18, backgroundColor: '#ccc', padding: 10 },
+const styles = StyleSheet.create({
+  tabItem: {},
 });
 
 export default Configurator;

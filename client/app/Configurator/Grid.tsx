@@ -2,19 +2,34 @@ import { Text, View, StyleSheet, Pressable, ScrollView } from 'react-native';
 
 import { seedWindows } from '@/data/data';
 import Grid from '@/components/Grid';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import ActionBtn from '@/components/ActionBtn';
+import { WindowDataContext } from './_layout';
+import { windowCalc } from '@/helper/calc';
+import CatalogList from '../CatalogList';
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from 'expo-router';
 
-const gridData = seedWindows[0].grid;
 const GridConfigurator = () => {
-  const [rows, setRows] = useState<number>(gridData.count.y);
-  const [cols, setCols] = useState<number>(gridData.count.x);
+  const { windowData, setWindowData } = useContext(WindowDataContext);
+  const [rows, setRows] = useState<number>(windowData?.count?.y || 1);
+  const [cols, setCols] = useState<number>(windowData?.count?.x || 1);
+
+  useEffect(() => {
+    const newGridData = { ...windowData };
+
+    if (newGridData?.count?.y) {
+      newGridData.count.y = rows;
+      newGridData.count.x = cols;
+      const newCalcGrid = windowCalc({ grid: newGridData }).grid;
+      setWindowData(newCalcGrid);
+    }
+  }, [rows, cols]);
+
   return (
     <>
       <View
@@ -24,33 +39,7 @@ const GridConfigurator = () => {
         }}
       >
         <ScrollView>
-          {new Array(rows).fill('').map((x, i) => {
-            return (
-              <View
-                key={i}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 2,
-                  marginBottom: 2,
-                }}
-              >
-                {new Array(cols).fill('').map((y, j) => {
-                  return (
-                    <View key={j} style={{ width: 50, height: 50 }}>
-                      <LinearGradient
-                        colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                        locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
-                        style={{ width: 50, height: 50 }}
-                      ></LinearGradient>
-                    </View>
-                  );
-                })}
-              </View>
-            );
-          })}
+          <Grid {...windowData} />
         </ScrollView>
       </View>
       <View

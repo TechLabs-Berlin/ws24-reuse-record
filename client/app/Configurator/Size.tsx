@@ -1,19 +1,18 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Grid from '@/components/Grid';
-
-import { seedWindows } from '@/data/data';
-const gridData = seedWindows[0].grid;
+import { WindowDataContext } from './_layout';
 
 const SizeConfigurator = () => {
   const [activeCondition, setActiveCondition] = useState(null);
+  const { windowData, setWindowData } = useContext(WindowDataContext);
 
   const handelPress = (condition: any) => {
     setActiveCondition(condition === activeCondition ? null : condition);
   };
   return (
     <>
-      <Grid {...gridData} />
+      <Grid {...windowData} />
       <View style={{ ...styles.input, top: 0, right: '50%', marginRight: -40 }}>
         <TextInput defaultValue="100" keyboardType="numeric"></TextInput>
         <Text>cm</Text>
