@@ -22,12 +22,10 @@ const GridProportion = () => {
   );
 
   useEffect(() => {
-    console.log(rowsFactor);
     const newWindowData = { ...windowData };
     newWindowData.factor.input.y = rowsFactor;
     newWindowData.factor.input.x = colsFactor;
     const newCalculatedData = windowCalc({ grid: newWindowData }).grid;
-    console.log(newCalculatedData.cells);
     setWindowData(newCalculatedData);
   }, [rowsFactor, colsFactor]);
 

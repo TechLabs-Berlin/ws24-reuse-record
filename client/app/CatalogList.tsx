@@ -52,7 +52,6 @@ const CatalogList = () => {
             placeholder="search"
           />
           {data.map((catalog, i) => {
-            console.log(catalog._id);
             return (
               <Link key={i} href={`/CatalogDetail/${catalog._id}`} asChild>
                 <Pressable>

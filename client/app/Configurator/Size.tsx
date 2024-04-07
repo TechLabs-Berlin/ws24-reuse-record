@@ -10,14 +10,12 @@ const SizeConfigurator = () => {
   const [height, setHeight] = useState(windowData.frame.height);
 
   useEffect(() => {
-    console.log(width);
     const newWindowData = { ...windowData };
     newWindowData.frame.width = width;
     setWindowData(windowCalc({ grid: newWindowData }).grid);
   }, [width]);
 
   useEffect(() => {
-    console.log(width);
     const newWindowData = { ...windowData };
     newWindowData.frame.height = height;
     setWindowData(windowCalc({ grid: newWindowData }).grid);

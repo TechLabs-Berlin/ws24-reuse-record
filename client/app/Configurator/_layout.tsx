@@ -1,8 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Slot, usePathname, useRouter } from 'expo-router';
-import { Link } from 'expo-router';
 import ActionBtn from '@/components/ActionBtn';
 import { Grid } from '@/data/data';
 import { windowCalc } from '@/helper/calc';
@@ -11,8 +10,10 @@ const navItems = ['Size', 'Grid', 'Type', 'Proportion', 'Frame', 'Glass'];
 
 const defaultWindowData = {
   grid: {
-    width: 200,
-    height: 200,
+    frame: {
+      width: 200,
+      height: 200,
+    },
     factor: { x: [1], y: [1] },
     count: { x: 1, y: 1 },
   },

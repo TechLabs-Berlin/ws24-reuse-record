@@ -1,17 +1,28 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-const materials = ['PVC', 'Wood', 'Aluminium'];
-const surfaces = ['Natural', 'Lacquer', 'Stained', 'Anodized', 'Foil'];
+import { WindowDataContext } from './_layout';
+const materials = ['pvc', 'wood', 'aluminium'];
+const surfaces = ['natural', 'lacquer', 'stained', 'anodized', 'foil'];
 
 type SettingsType = {
   material: string;
   surface: string;
 };
+
 const WindowFrame = () => {
+  const { windowData, setWindowData } = useContext(WindowDataContext);
+
   const [settings, setSettings] = useState<SettingsType>({
-    material: 'PVC',
-    surface: 'natural',
+    material: windowData.frame.material || 'pvc',
+    surface: windowData.frame.surface || 'natural',
   });
+
+  useEffect(() => {
+    const newWindowData = { ...windowData };
+    newWindowData.frame.material = settings.material;
+    newWindowData.frame.surface = settings.surface;
+    setWindowData(newWindowData);
+  }, [settings]);
 
   const updateSettings = (change: Partial<SettingsType>) => {
     setSettings((prev) => {
