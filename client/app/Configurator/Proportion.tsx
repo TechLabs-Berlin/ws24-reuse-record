@@ -79,7 +79,7 @@ const GridProportion = () => {
               }}
             >
               <Pressable
-                style={styles.buttonSecondary}
+                style={styles.buttonPrimary}
                 onPress={() => {
                   setRowsFactor((prev) => {
                     const newFactor = [...prev];
@@ -91,7 +91,7 @@ const GridProportion = () => {
                   });
                 }}
               >
-                <AntDesign name="minus" size={16} color="#fff" />
+                <AntDesign name="minus" size={16} color="#000" />
               </Pressable>
               <TextInput
                 style={styles.inputRow}
@@ -108,7 +108,7 @@ const GridProportion = () => {
                   });
                 }}
               >
-                <AntDesign name="plus" size={16} color="#fff" />
+                <AntDesign name="plus" size={16} color="#000" />
               </Pressable>
             </View>
           );
@@ -145,7 +145,7 @@ const GridProportion = () => {
                   });
                 }}
               >
-                <AntDesign name="plus" size={16} color="#fff" />
+                <AntDesign name="plus" size={16} color="#000" />
               </Pressable>
 
               <TextInput
@@ -155,7 +155,7 @@ const GridProportion = () => {
                 keyboardType="numeric"
               ></TextInput>
               <Pressable
-                style={styles.buttonSecondary}
+                style={styles.buttonPrimary}
                 onPress={() => {
                   setColsFactor((prev) => {
                     const newFactor = [...prev];
@@ -166,7 +166,7 @@ const GridProportion = () => {
                   });
                 }}
               >
-                <AntDesign name="minus" size={16} color="#fff" />
+                <AntDesign name="minus" size={16} color="#000" />
               </Pressable>
             </View>
           );
@@ -200,31 +200,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonPrimary: {
-    shadowColor: '#555', // For iOS shadow
+    shadowColor: '#444', // For iOS shadow
     borderColor: '#999',
     shadowOffset: { width: 0, height: 2 }, // For iOS shadow
     shadowOpacity: 1, // For iOS shadow
     shadowRadius: 4, // For iOS shadow
     elevation: 6, // For Android shadow
     opacity: 0.9,
-    backgroundColor: '#333',
+    borderWidth: 2,
     borderRadius: 30,
     paddingHorizontal: 10,
     paddingVertical: 13,
+    width: 45,
+    height: 45,
+    textAlign: 'center',
+    backgroundColor: '#fff',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  buttonSecondary: {
-    shadowColor: '#555', // For iOS shadow
-    borderColor: '#999',
-    shadowOffset: { width: 0, height: 2 }, // For iOS shadow
-    shadowOpacity: 1, // For iOS shadow
-    shadowRadius: 4, // For iOS shadow
-    elevation: 6, // For Android shadow
-    opacity: 0.9,
-    backgroundColor: '#666',
-    borderRadius: 30,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-  },
+
   laelPrimary: {
     color: '#fff',
   },

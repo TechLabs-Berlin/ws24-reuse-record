@@ -12,7 +12,7 @@ const GlassConfigurator = () => {
       <View
         style={{
           ...styles.glass,
-          backgroundColor: isActive ? '#555' : '#fff  ',
+          backgroundColor: isActive ? '#3498db' : '#fff  ',
         }}
       >
         <Image
