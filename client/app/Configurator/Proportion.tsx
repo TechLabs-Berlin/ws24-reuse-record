@@ -1,69 +1,35 @@
 import {
-  Text,
   View,
   StyleSheet,
   ScrollView,
   TextInput,
-  Button,
   Pressable,
 } from 'react-native';
 
-import { useContext, useState } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useContext, useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { WindowDataContext } from './_layout';
+import Grid from '@/components/Grid';
+import { windowCalc } from '@/helper/calc';
 
 const GridProportion = () => {
   const { windowData, setWindowData } = useContext(WindowDataContext);
   const [rowsFactor, setRowsFactor] = useState<number[]>(windowData.factor.y);
   const [colsFactor, setColsFactor] = useState<number[]>(windowData.factor.x);
 
+  useEffect(() => {
+    console.log(rowsFactor);
+    const newWindowData = { ...windowData };
+    newWindowData.factor.y = rowsFactor;
+    const newCalculatedData = windowCalc({ grid: newWindowData }).grid;
+    console.log(newCalculatedData.cells);
+    setWindowData(newCalculatedData);
+  }, [rowsFactor]);
+
   return (
     <>
       <ScrollView style={{ paddingTop: 10 }}>
-        <View
-          style={{
-            backgroundColor: '#aaa',
-            padding: 10,
-          }}
-        >
-          {new Array(windowData.count.y).fill('').map((y, j) => {
-            return (
-              <View
-                key={j}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 2,
-                  marginBottom: 2,
-                }}
-              >
-                {new Array(windowData.count.x).fill('').map((x, i) => {
-                  return (
-                    <View
-                      key={i}
-                      style={{
-                        width: 50 * colsFactor[i],
-                        height: 50 * rowsFactor[j],
-                      }}
-                    >
-                      <LinearGradient
-                        colors={['#bdd7f4', '#b8e1fc', '#a2caf2', '#a9d2f3']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                        locations={[0.3, 0.4, 0.4, 0.6]} // Adjust the color stop positions here
-                        style={{
-                          width: 50 * colsFactor[i],
-                          height: 50 * rowsFactor[j],
-                        }}
-                      ></LinearGradient>
-                    </View>
-                  );
-                })}
-              </View>
-            );
-          })}
-        </View>
+        <Grid {...windowData} />
       </ScrollView>
       <View style={{ position: 'absolute', right: 25, top: 0, marginTop: 20 }}>
         {new Array(windowData.count.y).fill('').map((x, i) => {
@@ -171,23 +137,6 @@ const GridProportion = () => {
           );
         })}
       </View>
-      <View
-        style={{
-          position: 'absolute',
-          right: 50,
-          bottom: '50%',
-          marginBottom: -30,
-        }}
-      ></View>
-      <View
-        style={{
-          flexDirection: 'row',
-          position: 'absolute',
-          bottom: 18,
-          right: '50%',
-          marginRight: -70,
-        }}
-      ></View>
     </>
   );
 };
