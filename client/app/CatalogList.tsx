@@ -51,10 +51,10 @@ const CatalogList = () => {
             }}
             placeholder="search"
           />
-          {data.map((catalog) => {
+          {data.map((catalog, i) => {
             console.log(catalog._id);
             return (
-              <Link href={`/CatalogDetail/${catalog._id}`} asChild>
+              <Link key={i} href={`/CatalogDetail/${catalog._id}`} asChild>
                 <Pressable>
                   <CatalogItem
                     title={`${catalog.grid.count.x}x${catalog.grid.count.y}`}

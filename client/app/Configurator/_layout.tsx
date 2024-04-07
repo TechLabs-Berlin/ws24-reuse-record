@@ -66,84 +66,33 @@ const Configurator = () => {
           gap: 5,
         }}
       >
-        <Link href="/Configurator/Grid" asChild>
-          <Pressable>
-            <Text
+        {navItems.map((item) => {
+          return (
+            <Pressable
               style={{
                 ...styles.tabItem,
+                borderLeftColor:
+                  pathname === `/Configurator/${item}`
+                    ? '#74b8ed'
+                    : 'transparent',
                 backgroundColor:
-                  pathname === '/Configurator/Grid' ? '#74b8eb' : '#ccc',
+                  pathname === `/Configurator/${item}` ? '#fff' : 'transparent',
               }}
             >
-              Grid
-            </Text>
-          </Pressable>
-        </Link>
-        <Link href="/Configurator/Type" asChild>
-          <Pressable>
-            <Text
-              style={{
-                ...styles.tabItem,
-                backgroundColor:
-                  pathname === '/Configurator/Type' ? '#74b8eb' : '#ccc',
-              }}
-            >
-              Type
-            </Text>
-          </Pressable>
-        </Link>
-        <Link href="/Configurator/Size" asChild>
-          <Pressable>
-            <Text
-              style={{
-                ...styles.tabItem,
-                backgroundColor:
-                  pathname === '/Configurator/Size' ? '#74b8eb' : '#ccc',
-              }}
-            >
-              Size
-            </Text>
-          </Pressable>
-        </Link>
-        <Link href="/Configurator/Proportion" asChild>
-          <Pressable>
-            <Text
-              style={{
-                ...styles.tabItem,
-                backgroundColor:
-                  pathname === '/Configurator/Proportion' ? '#74b8eb' : '#ccc',
-              }}
-            >
-              Proporation
-            </Text>
-          </Pressable>
-        </Link>
-        <Link href="/Configurator/Frame" asChild>
-          <Pressable>
-            <Text
-              style={{
-                ...styles.tabItem,
-                backgroundColor:
-                  pathname === '/Configurator/Frame' ? '#74b8eb' : '#ccc',
-              }}
-            >
-              Frame
-            </Text>
-          </Pressable>
-        </Link>
-        <Link href="/Configurator/Glass" asChild>
-          <Pressable>
-            <Text
-              style={{
-                ...styles.tabItem,
-                backgroundColor:
-                  pathname === '/Configurator/Glass' ? '#74b8eb' : '#ccc',
-              }}
-            >
-              Glass
-            </Text>
-          </Pressable>
-        </Link>
+              <Text
+                style={{
+                  ...styles.tabText,
+                  color:
+                    pathname === `/Configurator/${item}` ? 'black' : '#999',
+                  fontWeight:
+                    pathname === `/Configurator/${item}` ? 'bold' : 'normal',
+                }}
+              >
+                {item}
+              </Text>
+            </Pressable>
+          );
+        })}
       </View>
       <View
         style={{
@@ -164,7 +113,16 @@ const Configurator = () => {
 };
 
 const styles = StyleSheet.create({
-  tabItem: {},
+  tabItem: {
+    display: 'flex',
+    padding: 10,
+    gap: 10,
+    borderLeftColor: '#fff',
+    borderLeftWidth: 5,
+  },
+  tabText: {
+    color: '#777',
+  },
 });
 
 export default Configurator;

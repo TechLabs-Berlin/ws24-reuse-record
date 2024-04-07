@@ -105,7 +105,7 @@ export default function App() {
                   >
                     <FontAwesome name="times" size={24} color="#fff" />
                   </TouchableOpacity>
-                  <Link href="/Configurator" asChild>
+                  <Link href="/Configurator/Grid" asChild>
                     <TouchableOpacity style={styles.doubleCircle}>
                       <Text>Save</Text>
                     </TouchableOpacity>
