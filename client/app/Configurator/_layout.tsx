@@ -50,10 +50,13 @@ const Configurator = () => {
   const goToNextPage = () => {
     const currentPage = pathname.replace('/Configurator/', '');
     const currentPageNumber = navItems.indexOf(currentPage);
-    const nextPage = navItems[currentPageNumber + 1];
-    console.log(nextPage);
-    // @ts-ignore
-    router.push(`/Configurator/${nextPage}`);
+    if (currentPageNumber === navItems.length - 1) {
+      router.replace(`/CatalogList`);
+    } else {
+      const nextPage = navItems[currentPageNumber + 1];
+      // @ts-ignore
+      router.push(`/Configurator/${nextPage}`);
+    }
   };
   return (
     <View

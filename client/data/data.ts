@@ -23,7 +23,7 @@ export interface Frame {
 export interface Cell {
   width: number;
   height: number;
-  type: 'openable' | 'fixed' | 'parapet';
+  type: 'openable' | 'fixed' ;
   frame?: Frame;
   glass: Glass;
 }

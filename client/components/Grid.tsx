@@ -23,7 +23,7 @@ const Grid: FunctionComponent<GridProps> = (gridData) => {
       }}
     >
       {gridData.cells.map((cell, i) => (
-        <Cell {...cell} key={i} />
+        <Cell {...cell} key={i} cellIndex={i} />
       ))}
     </View>
   );

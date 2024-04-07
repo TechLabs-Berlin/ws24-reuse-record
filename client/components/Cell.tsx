@@ -1,18 +1,26 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Cell } from '@/data/data';
+import { WindowDataContext } from '@/app/Configurator/_layout';
 
-const CellComponent: FunctionComponent<Cell> = ({
+const CellComponent: FunctionComponent<Cell & { cellIndex: number }> = ({
   width,
   height,
   type,
   glass,
+  cellIndex,
 }) => {
-  const [activeCondition, setActiveCondition] = useState<Cell['type']>(type);
+  const [winType, setWinType] = useState<Cell['type']>(type);
+  const { windowData, setWindowData } = useContext(WindowDataContext);
 
+  useEffect(() => {
+    const newWindowData = { ...windowData };
+    newWindowData.cells[cellIndex].type = winType;
+    setWindowData(newWindowData);
+  }, [winType]);
   const toggleCellType = () => {
-    setActiveCondition((prev) => {
+    setWinType((prev) => {
       switch (prev) {
         case 'openable':
           return 'fixed';
@@ -45,11 +53,11 @@ const CellComponent: FunctionComponent<Cell> = ({
             width: '100%',
             justifyContent: 'center',
             borderColor: '#888',
-            borderWidth: activeCondition === 'openable' ? 2 : 0,
+            borderWidth: winType === 'openable' ? 2 : 0,
           }}
           onPress={() => toggleCellType()}
         >
-          <Text style={{ textAlign: 'center' }}>{activeCondition} </Text>
+          <Text style={{ textAlign: 'center' }}>{winType} </Text>
         </Pressable>
       </LinearGradient>
     </View>
