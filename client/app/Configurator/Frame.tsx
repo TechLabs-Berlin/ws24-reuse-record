@@ -25,12 +25,11 @@ const WindowFrame = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 8,
+            gap: 18,
           }}
         >
-          <Text>Frame</Text>
           <View style={styles.options}>
-            <Text>Material</Text>
+            <Text style={styles.label}>Material</Text>
             {materials.map((material, i) => {
               return (
                 <TouchableOpacity
@@ -50,7 +49,7 @@ const WindowFrame = () => {
             })}
           </View>
           <View style={styles.options}>
-            <Text>Surface</Text>
+            <Text style={styles.label}>Surface</Text>
             {surfaces.map((surface, i) => {
               return (
                 <TouchableOpacity
@@ -70,13 +69,13 @@ const WindowFrame = () => {
             })}
           </View>
           <View style={styles.options}>
-            <Text>Depth</Text>
+            <Text style={styles.label}>Depth</Text>
             <TouchableOpacity style={styles.Btn}>
               <Text>7cm</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.options}>
-            <Text>Thickness</Text>
+            <Text style={styles.label}>Thickness</Text>
             <TouchableOpacity style={styles.Btn}>
               <Text>8cm</Text>
             </TouchableOpacity>
@@ -92,7 +91,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 10,
+  },
+  label: {
+    width: 70,
   },
   Btn: {
     backgroundColor: '#999',
@@ -102,7 +106,8 @@ const styles = StyleSheet.create({
   options: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 10,
+    alignItems: 'center',
+    gap: 6,
   },
 
   buttonLabel: {

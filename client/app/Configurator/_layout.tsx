@@ -71,6 +71,7 @@ const Configurator = () => {
           padding: 15,
           flexDirection: 'column',
           gap: 5,
+          justifyContent: 'center',
         }}
       >
         {navItems.map((item) => {

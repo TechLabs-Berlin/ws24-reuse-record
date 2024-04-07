@@ -33,10 +33,18 @@ const GridProportion = () => {
 
   return (
     <>
-      <ScrollView style={{ paddingTop: 10 }}>
-        <Grid {...windowData} />
-      </ScrollView>
-      <View style={{ position: 'absolute', right: 25, top: 0, marginTop: 20 }}>
+      <Grid {...windowData} />
+      <View
+        style={{
+          position: 'absolute',
+          right: 25,
+          top: 0,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
         {new Array(windowData.count.y).fill('').map((x, i) => {
           return (
             <View
@@ -181,11 +189,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 2,
     marginTop: 2,
+    backgroundColor: '#fff',
+    padding: 5,
   },
   inputRow: {
     fontSize: 16,
     marginLeft: 5,
     marginRight: 5,
+    backgroundColor: '#fff',
+    padding: 5,
   },
 });
 

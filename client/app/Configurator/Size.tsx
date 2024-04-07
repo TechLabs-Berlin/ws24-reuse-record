@@ -26,7 +26,9 @@ const SizeConfigurator = () => {
   return (
     <>
       <Grid {...windowData} />
-      <View style={{ ...styles.input, top: 0, right: '50%', marginRight: -40 }}>
+      <View
+        style={{ ...styles.input, top: 20, right: '50%', marginRight: -40 }}
+      >
         <TextInput
           defaultValue={`${width}`}
           keyboardType="numeric"
@@ -40,7 +42,7 @@ const SizeConfigurator = () => {
       <View
         style={{
           ...styles.input,
-          right: 50,
+          right: 20,
           bottom: '50%',
           marginBottom: -10,
         }}

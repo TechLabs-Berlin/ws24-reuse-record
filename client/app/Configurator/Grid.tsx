@@ -38,9 +38,7 @@ const GridConfigurator = () => {
           backgroundColor: '#f2f2f2',
         }}
       >
-        <ScrollView>
-          <Grid {...windowData} />
-        </ScrollView>
+        <Grid {...windowData} />
       </View>
       <View
         style={{
