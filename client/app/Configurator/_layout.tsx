@@ -47,10 +47,27 @@ const Configurator = () => {
       resetScreenOrientation();
     };
   }, []);
-  const goToNextPage = () => {
+
+  const goToNextPage = async () => {
     const currentPage = pathname.replace('/Configurator/', '');
     const currentPageNumber = navItems.indexOf(currentPage);
     if (currentPageNumber === navItems.length - 1) {
+      try {
+        const res = await fetch(
+          'https://ws24-reuse-record.onrender.com/windows',
+          {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify({ grid: windowData }),
+          }
+        ).then((resp) => resp.text());
+        console.log(res);
+      } catch (e) {
+        console.log(e);
+      }
+
       router.replace(`/CatalogList`);
     } else {
       const nextPage = navItems[currentPageNumber + 1];

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-const materials = ['PVC', 'wood', 'aluminium'];
-const surfaces = ['natural', 'licquer', 'stained', 'anadized', 'fail'];
+const materials = ['PVC', 'Wood', 'Aluminium'];
+const surfaces = ['Natural', 'Lacquer', 'Stained', 'Anodized', 'Foil'];
 
 type SettingsType = {
   material: string;
