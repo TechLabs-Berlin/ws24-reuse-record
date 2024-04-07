@@ -5,11 +5,13 @@ import {
   ScrollView,
   TextInput,
   Button,
+  Pressable,
 } from 'react-native';
 
 import { seedWindows } from '@/data/data';
 import { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { AntDesign } from '@expo/vector-icons';
 const gridData = seedWindows[0].grid;
 
 const rows = gridData.count.y;
@@ -64,7 +66,7 @@ const GridProportion = () => {
           })}
         </View>
       </ScrollView>
-      <View style={{ position: 'absolute', right: 100, top: 0, marginTop: 20 }}>
+      <View style={{ position: 'absolute', right: 25, top: 0, marginTop: 20 }}>
         {new Array(rows).fill('').map((x, i) => {
           return (
             <View
@@ -76,23 +78,28 @@ const GridProportion = () => {
                 height: 50 * rowsFactor[i],
               }}
             >
-              <Button
-                title="-"
+              <Pressable
+                style={styles.buttonSecondary}
                 onPress={() => {
                   setRowsFactor((prev) => {
                     const newFactor = [...prev];
-                    newFactor[i] -= 1;
+                    if (newFactor[i] > 1) {
+                      newFactor[i] -= 1;
+                    }
+
                     return newFactor;
                   });
                 }}
-              />
+              >
+                <AntDesign name="minus" size={16} color="#fff" />
+              </Pressable>
               <TextInput
-                style={styles.input}
+                style={styles.inputRow}
                 defaultValue={`${rowsFactor[i]}`}
                 keyboardType="numeric"
               />
-              <Button
-                title="+"
+              <Pressable
+                style={styles.buttonPrimary}
                 onPress={() => {
                   setRowsFactor((prev) => {
                     const newFactor = [...prev];
@@ -100,7 +107,9 @@ const GridProportion = () => {
                     return newFactor;
                   });
                 }}
-              />
+              >
+                <AntDesign name="plus" size={16} color="#fff" />
+              </Pressable>
             </View>
           );
         })}
@@ -126,8 +135,8 @@ const GridProportion = () => {
                 alignItems: 'center',
               }}
             >
-              <Button
-                title="+"
+              <Pressable
+                style={styles.buttonPrimary}
                 onPress={() => {
                   setColsFactor((prev) => {
                     const newFactor = [...prev];
@@ -135,24 +144,30 @@ const GridProportion = () => {
                     return newFactor;
                   });
                 }}
-              />
+              >
+                <AntDesign name="plus" size={16} color="#fff" />
+              </Pressable>
 
               <TextInput
                 key={i}
-                style={styles.input}
+                style={styles.inputCol}
                 defaultValue={`${colsFactor[i]}`}
                 keyboardType="numeric"
               ></TextInput>
-              <Button
-                title="-"
+              <Pressable
+                style={styles.buttonSecondary}
                 onPress={() => {
                   setColsFactor((prev) => {
                     const newFactor = [...prev];
-                    newFactor[i] -= 1;
+                    if (newFactor[i] > 1) {
+                      newFactor[i] -= 1;
+                    }
                     return newFactor;
                   });
                 }}
-              />
+              >
+                <AntDesign name="minus" size={16} color="#fff" />
+              </Pressable>
             </View>
           );
         })}
@@ -184,37 +199,44 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  gradient: {
-    width: 100,
-    height: 100,
-    borderWidth: 10,
-    borderColor: '#e2e8f1',
+  buttonPrimary: {
+    shadowColor: '#555', // For iOS shadow
+    borderColor: '#999',
+    shadowOffset: { width: 0, height: 2 }, // For iOS shadow
+    shadowOpacity: 1, // For iOS shadow
+    shadowRadius: 4, // For iOS shadow
+    elevation: 6, // For Android shadow
+    opacity: 0.9,
+    backgroundColor: '#333',
+    borderRadius: 30,
+    paddingHorizontal: 10,
+    paddingVertical: 13,
   },
-  customButton: {
-    borderRadius: 50,
-    backgroundColor: 'rgb(146 159 29)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    elevation: 3,
+  buttonSecondary: {
+    shadowColor: '#555', // For iOS shadow
+    borderColor: '#999',
+    shadowOffset: { width: 0, height: 2 }, // For iOS shadow
+    shadowOpacity: 1, // For iOS shadow
+    shadowRadius: 4, // For iOS shadow
+    elevation: 6, // For Android shadow
+    opacity: 0.9,
+    backgroundColor: '#666',
+    borderRadius: 30,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
   },
-  buttonLabel: {
+  laelPrimary: {
     color: '#fff',
   },
-  input: {
-    width: 60,
-    borderRadius: 50,
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    padding: 10,
+  inputCol: {
+    fontSize: 16,
+    marginBottom: 2,
+    marginTop: 2,
   },
-  Btn: {
-    borderWidth: 2,
-    borderRadius: 50,
-    padding: 10,
-    backgroundColor: 'blue',
+  inputRow: {
+    fontSize: 16,
+    marginLeft: 5,
+    marginRight: 5,
   },
 });
 
