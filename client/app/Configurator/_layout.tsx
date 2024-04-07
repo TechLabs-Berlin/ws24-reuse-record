@@ -7,7 +7,7 @@ import ActionBtn from '@/components/ActionBtn';
 import { Grid } from '@/data/data';
 import { windowCalc } from '@/helper/calc';
 
-const navItems = ['Grid', 'Type', 'Size', 'Proportion', 'Frame', 'Glass'];
+const navItems = ['Size', 'Grid', 'Type', 'Proportion', 'Frame', 'Glass'];
 
 const defaultWindowData = {
   grid: {
@@ -76,6 +76,7 @@ const Configurator = () => {
         {navItems.map((item) => {
           return (
             <Pressable
+              key={item}
               style={{
                 ...styles.tabItem,
                 borderLeftColor:

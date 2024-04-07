@@ -14,17 +14,22 @@ import { windowCalc } from '@/helper/calc';
 
 const GridProportion = () => {
   const { windowData, setWindowData } = useContext(WindowDataContext);
-  const [rowsFactor, setRowsFactor] = useState<number[]>(windowData.factor.y);
-  const [colsFactor, setColsFactor] = useState<number[]>(windowData.factor.x);
+  const [rowsFactor, setRowsFactor] = useState<number[]>(
+    windowData.factor.input.y
+  );
+  const [colsFactor, setColsFactor] = useState<number[]>(
+    windowData.factor.input.x
+  );
 
   useEffect(() => {
     console.log(rowsFactor);
     const newWindowData = { ...windowData };
-    newWindowData.factor.y = rowsFactor;
+    newWindowData.factor.input.y = rowsFactor;
+    newWindowData.factor.input.x = colsFactor;
     const newCalculatedData = windowCalc({ grid: newWindowData }).grid;
     console.log(newCalculatedData.cells);
     setWindowData(newCalculatedData);
-  }, [rowsFactor]);
+  }, [rowsFactor, colsFactor]);
 
   return (
     <>
@@ -93,6 +98,7 @@ const GridProportion = () => {
         {new Array(windowData.count.x).fill('').map((x, i) => {
           return (
             <View
+              key={i}
               style={{
                 width: 20 + 50 * colsFactor[i],
                 display: 'flex',

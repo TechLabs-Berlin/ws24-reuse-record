@@ -31,9 +31,10 @@ const WindowFrame = () => {
           <Text>Frame</Text>
           <View style={styles.options}>
             <Text>Material</Text>
-            {materials.map((material) => {
+            {materials.map((material, i) => {
               return (
                 <TouchableOpacity
+                  key={i}
                   onPress={() => {
                     updateSettings({ material });
                   }}
@@ -50,9 +51,10 @@ const WindowFrame = () => {
           </View>
           <View style={styles.options}>
             <Text>Surface</Text>
-            {surfaces.map((surface) => {
+            {surfaces.map((surface, i) => {
               return (
                 <TouchableOpacity
+                  key={i}
                   onPress={() => {
                     updateSettings({ surface });
                   }}

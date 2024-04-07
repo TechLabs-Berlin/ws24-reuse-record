@@ -31,7 +31,8 @@ const SizeConfigurator = () => {
           defaultValue={`${width}`}
           keyboardType="numeric"
           onChangeText={(value) => {
-            if (value !== '') setWidth(parseInt(value));
+            const intVal = parseInt(value);
+            if (intVal > 50) setWidth(intVal);
           }}
         ></TextInput>
         <Text>cm</Text>
@@ -46,7 +47,8 @@ const SizeConfigurator = () => {
       >
         <TextInput
           onChangeText={(value) => {
-            if (value !== '') setHeight(parseInt(value));
+            const intVal = parseInt(value);
+            if (intVal > 50) setHeight(intVal);
           }}
           defaultValue={`${height}`}
           keyboardType="numeric"

@@ -31,6 +31,14 @@ export interface Cell {
 export interface Factor {
   x: number[];
   y: number[];
+  input: {
+    x: number[];
+    y: number[];
+  },
+  res: {
+    x: number[];
+    y: number[];
+  }
 }
 
 export interface Count {
