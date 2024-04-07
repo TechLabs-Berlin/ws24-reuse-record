@@ -1,20 +1,39 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Grid from '@/components/Grid';
 import { WindowDataContext } from './_layout';
+import { windowCalc } from '@/helper/calc';
 
 const SizeConfigurator = () => {
-  const [activeCondition, setActiveCondition] = useState(null);
   const { windowData, setWindowData } = useContext(WindowDataContext);
+  const [width, setWidth] = useState(windowData.frame.width);
+  const [height, setHeight] = useState(windowData.frame.height);
 
-  const handelPress = (condition: any) => {
-    setActiveCondition(condition === activeCondition ? null : condition);
-  };
+  useEffect(() => {
+    console.log(width);
+    const newWindowData = { ...windowData };
+    newWindowData.frame.width = width;
+    setWindowData(windowCalc({ grid: newWindowData }).grid);
+  }, [width]);
+
+  useEffect(() => {
+    console.log(width);
+    const newWindowData = { ...windowData };
+    newWindowData.frame.height = height;
+    setWindowData(windowCalc({ grid: newWindowData }).grid);
+  }, [height]);
+
   return (
     <>
       <Grid {...windowData} />
       <View style={{ ...styles.input, top: 0, right: '50%', marginRight: -40 }}>
-        <TextInput defaultValue="100" keyboardType="numeric"></TextInput>
+        <TextInput
+          defaultValue={`${width}`}
+          keyboardType="numeric"
+          onChangeText={(value) => {
+            if (value !== '') setWidth(parseInt(value));
+          }}
+        ></TextInput>
         <Text>cm</Text>
       </View>
       <View
@@ -25,7 +44,13 @@ const SizeConfigurator = () => {
           marginBottom: -10,
         }}
       >
-        <TextInput defaultValue="100" keyboardType="numeric"></TextInput>
+        <TextInput
+          onChangeText={(value) => {
+            if (value !== '') setHeight(parseInt(value));
+          }}
+          defaultValue={`${height}`}
+          keyboardType="numeric"
+        ></TextInput>
         <Text>cm</Text>
       </View>
     </>
@@ -66,6 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 1,
     borderColor: '#ddd',
+    backgroundColor: '#fff',
     padding: 10,
     marginBottom: 20,
     position: 'absolute',
