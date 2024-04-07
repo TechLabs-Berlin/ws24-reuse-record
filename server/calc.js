@@ -1,6 +1,7 @@
 const _ = require('lodash');
 
-export function windowCalc(input) {
+
+function windowCalc(input) {
 
     // Functions
     function adjustArray(count, factor, add) {
@@ -23,31 +24,34 @@ export function windowCalc(input) {
     // Default
     const defaultGrid = {
         grid: {
-            "width": null,
-            "height": null,
-            "count": {
-                "x": 1,
-                "y": 1,
-                "total": null
+            width: null,
+            height: null,
+            count: {
+                x: 1,
+                y: 1,
+                total: null
             },
-            "factor": {
-                "x": [1],
-                "y": [1]
-            },
-            "frame": {
-                "width": 104,
-                "height": 104,
-                "material": "pvc",
-                "surface": "natural",
-                "colour": "white",
-                "profile": {
-                    "width": 8,
-                    "offsetOutXY": 2,
-                    "offsetInXY": null,
-                    "depth": 6
+            factor: {
+                input: {
+                    x: [1],
+                    y: [1]
                 }
             },
-            "cells": []
+            frame: {
+                width: 104,
+                height: 104,
+                material: "pvc",
+                surface: "natural",
+                colour: "white",
+                uValue: 1.5,
+                profile: {
+                    width: 8,
+                    offsetOutXY: 2,
+                    offsetInXY: null,
+                    depth: 6
+                }
+            },
+            cells: []
         }
     }
 
@@ -63,31 +67,79 @@ export function windowCalc(input) {
     result.grid.frame.profile.offsetInXY = result.grid.frame.profile.width - result.grid.frame.profile.offsetOutXY;
 
     // Factor x & y
-    adjustArray(result.grid.count.x, result.grid.factor.x, 1);
-    adjustArray(result.grid.count.y, result.grid.factor.y, 1);
+    for (let key in result.grid.factor.input) {
+        adjustArray(result.grid.count[key], result.grid.factor.input[key], 1);
+    }
 
+    // VALIDATION
+    // factor
+    for (let key in result.grid.factor.input) {
+        for (let value of result.grid.factor.input[key]) {
+            if (value <= 0) {
+                throw new Error(`Invalid factor ${key}. The value must be greater than 0.`);
+            }
+        }
+    }
+
+    // Calulates the sums of the x & y factors
+    result.grid.factor.sum = {};
+    for (let key in result.grid.factor.input) {
+        result.grid.factor.sum[key] = result.grid.factor.input[key].reduce((acc, curr) => acc + curr, 0);
+    }
+
+    // Calucates the resulting factor for each cell
+    function translateFactor(factor) {
+
+        const res = {
+            x: [],
+            y: []
+        };
+
+        // Loop through each element in the 'y' array
+        factor.input.y.forEach((yValue) => {
+            // Repeat each 'yValue' count times and add to 'y' array in 'res'
+            for (let i = 0; i < factor.input.x.length; i++) {
+                res.y.push(yValue / factor.sum.y);
+            }
+
+            // Add each 'x' value followed by 'sumX' to the 'x' array in 'res'
+            factor.input.x.forEach((xValue) => {
+                res.x.push(xValue / factor.sum.x);
+            });
+        });
+
+        return res;
+    }
+
+    result.grid.factor.res = translateFactor(result.grid.factor);
 
     // CELL LEVEL
 
     // Default
     const defaultCell = {
-        "width": null,
-        "height": null,
-        "type": "openable",
-        "frame": {
-            "width": null,
-            "height": null,
-            "profile": {
-                "width": 8,
-                "offsetOutXY": 2,
-                "offsetInXY": null,
-                "depth": 6
+        width: null,
+        height: null,
+        type: "openable",
+        frame: {
+            width: null,
+            height: null,
+            material: "pvc",
+            surface: "natural",
+            colour: "white",
+            uValue: 1.5,
+            profile: {
+                width: 8,
+                offsetOutXY: 2,
+                offsetInXY: null,
+                depth: 6
             }
         },
-        "glass": {
-            "width": null,
-            "height": null,
-            "type": "double"
+        glass: {
+            width: null,
+            height: null,
+            type: "double",
+            uValue: 2.8,
+            phiValue: 0.6
         }
     }
 
@@ -95,94 +147,81 @@ export function windowCalc(input) {
     adjustArray(result.grid.count.total, result.grid.cells, defaultCell);
 
     // Calculations
-    for (let cell of result.grid.cells) {
-        // for now without factor
-        cell.width = result.grid.width / result.grid.count.x;
-        cell.height = result.grid.height / result.grid.count.y;
+    for (let i = 0; i < result.grid.cells.length; i++) {
+        // Merges the input object with the default object to set default values for missing properties
+        result.grid.cells[i] = _.merge({}, defaultCell, result.grid.cells[i]);
+
+        // Get the current cell
+        let cell = result.grid.cells[i];
+
+        // VALIDATION
+        // glass.type
+        if (!["single", "double", "triple"].includes(cell.glass.type)) {
+            throw new Error("Invalid glass type. The type must be 'single', 'double', or 'triple'.");
+        }
+        // cell.type
+        if (!["fixed", "openable", "null"].includes(cell.type)) {
+            throw new Error("Invalid cell type. The type must be 'fixed', 'openable', or 'null'.");
+        }
+
+        // Calculate cell width and hight
+        cell.width = result.grid.width * result.grid.factor.res.x[i];
+        cell.height = result.grid.height * result.grid.factor.res.y[i];
+
+        // Pick the right uValue
+        switch (cell.glass.type) {
+            case "double":
+                cell.glass.uValue = 2.8;
+                break;
+            case "single":
+                cell.glass.uValue = 5.8;
+                break;
+            case "triple":
+                cell.glass.uValue = 0.6;
+                break;
+        }
+
+        if (cell.type === "openable") {
+            cell.frame.width = cell.width - result.grid.frame.profile.offsetInXY * 2 + cell.frame.profile.offsetOutXY * 2;
+            cell.frame.height = cell.height - result.grid.frame.profile.offsetInXY * 2 + cell.frame.profile.offsetOutXY * 2;
+
+            // take properties from grid.frame
+            const { material, surface, colour, uValue, profile } = result.grid.frame;
+
+            cell.frame = {
+                material,
+                surface,
+                colour,
+                uValue,
+                profile: { ...profile }
+            };
+            // Caculate glass width and hight
+            cell.glass.width = cell.width - result.grid.frame.profile.offsetInXY * 2 - cell.frame.profile.offsetInXY;
+            cell.glass.height = cell.height - result.grid.frame.profile.offsetInXY * 2 - cell.frame.profile.offsetInXY;
+        } else if (cell.type === "fixed") {
+            delete cell.frame;
+            // Caculate glass width and hight
+            cell.glass.width = cell.width - result.grid.frame.profile.offsetInXY * 2;
+            cell.glass.height = cell.height - result.grid.frame.profile.offsetInXY * 2;
+        } else if (cell.type === "null") {
+            // Delete all other properties other than type
+            const { type, ...other } = cell;
+            result.grid.cells[i] = { type };
+        }
+
+        // VALIDATION
+        // glass.width & height
+        if (cell.glass.width < 0) {
+            throw new Error(`Glass width in cell ${i} below 0. Increase overall width or change factor / layout.`);
+        } else if (cell.glass.height < 0) {
+            throw new Error(`Glass height in cell ${i} below 0. Increase overall height or change factor / layout.`);
+        }
     }
-
-
-    // if (result.grid.count.total > result.grid.cells.length) {
-    //     const missing = result.grid.count.total - result.grid.cells.length;
-    //     for (let i = 0; i < missing; i++) {
-    //         result.grid.cells.push(defaultCell);
-    //     }
-    // } else if (result.grid.count.total < result.grid.cells.length) {
-    //     const excess = result.grid.cells.length - result.grid.count.total;
-    //     for (let i = 0; i < missing; i++) {
-    //         result.grid.cells.pop();
-    //     }
-    // }
-
-
-
-    // for (let i = 0; i < window.gird.count.x * window.grid.count.y; i++) {
-    //     window?.grid?.cells[i]?.frame?.profile?.depth ?? 8;
-    // }
-
-
-    // // Defaults
-
-    // for (let i = 0; i < window.gird.count.x * window.grid.count.y; i++) {
-    //     window.grid.cells[i].frame.profile.width = 8;
-    //     window.grid.cells[i].frame.profile.offsetOutXY = 2;
-    //     window.grid.cells[i].frame.profile.offsetZ = 2;
-    // }
-
-
-
-    // // Calculations
-
-    // //Grid
-
-    // grid.width = grid.frame.width - grid.frame.profile.offsetOutXY;
-    // grid.hight = grid.frame.height - grid.frame.profile.offsetOutXY;
-
-    // grid.cells[i].width = grid.width / grid.count.x * grid.factor.x[i % grid.factor.x.length];
-    // grid.cells[i].height = grid.height / grid.count.y * grid.factor.y[i % grid.factor.y.length];
-
-    // // Frame
-
-    // grid.cells[i].frame.width = grid.cells[i].width - 2 * grid.frame.profile.offsetOutXY + 2 * grid.cells[i].frame.profile.offsetOutXY;
-    // grid.cells[i].frame.height = grid.cells[i].height - 2 * grid.frame.profile.offsetOutXY + 2 * grid.cells[i].frame.profile.offsetOutXY;
-
-    // // Profile
-
-    // grid.frame.profile.offsetInXY = grid.frame.profile.width - grid.frame.profile.offsetOutXY;
-    // grid.cells[i].frame.profile.offsetInXY = grid.cells[i].frame.profile.width - grid.cells[i].frame.profile.offsetOutXY;
-
-    // // Glas
-
-    // grid.cells[i].glas.width = grid.cells[i].width - grid.frame.profile.offsetInXY - grid.cells[i].frame.profile.offsetInXY;
-    // grid.cells[i].glas.height = grid.cells[i].height - grid.frame.profile.offsetInXY - grid.cells[i].frame.profile.offsetInXY;
-
 
     return result;
 }
 
 
-// let inputObject = {
-//     grid: {
-//         count: {
-//             x: 2,
-//             y: 2
-//         },
-//         frame: {
-//             width: 50,
-//             height: 50
-//         }
-//     }
-
-// };
-
-
-
-// const resultObject = windowCalc(inputObject);
-// console.log(inputObject);
-// console.log(JSON.stringify(resultObject, null, 2));
-
-
-
-
+module.exports = { windowCalc };
 
 
