@@ -3,7 +3,7 @@ import pandas as pd
 
 
 #Read Data
-df = pd.read_csv("cleaned_data.csv")
+df = pd.read_csv("../cleaned_data.csv")
 
 #Histogram size_horizontal
 plt.hist(df['size_horizontal_[m]'], bins=10, color='skyblue', edgecolor='black')

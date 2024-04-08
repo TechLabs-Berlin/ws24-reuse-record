@@ -21,9 +21,17 @@ df.drop(columns=columns_to_drop, inplace=True)
 #df.drop(columns=columns_to_drop2, inplace=True)
 
 # Replace NaN with Mean
+#df.replace(0, np.nan, inplace=True)
+#mean_values = df[["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]].mean()
+#df.fillna(mean_values, inplace=True)
+
+# Replace NaN with -1
+#df.replace(0, np.nan, inplace=True)
+#df.fillna(-1, inplace=True)
+
+# Dropping Rows with Missing Values
 df.replace(0, np.nan, inplace=True)
-mean_values = df[["size_horizontal_[m]", "size_vertical_[m]", "frame_depth_[cm]"]].mean()
-df.fillna(mean_values, inplace=True)
+df.dropna(inplace=True)
 
 #One-Hot-Encoding
 #df_encoded = pd.get_dummies(df, columns=["frame_colour", "frame_surface", "frame_material"], drop_first=True)
