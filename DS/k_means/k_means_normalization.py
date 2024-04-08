@@ -8,7 +8,8 @@ import seaborn as sns
 #Import Data
 df = pd.read_csv("../cleaned_data.csv")
 
-df_selected = df.copy()
+selected_columns = ['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']
+df_selected = df[selected_columns].copy()
 
 scaler = MinMaxScaler()
 df_scaled = scaler.fit_transform(df_selected)
@@ -44,12 +45,27 @@ df_selected['Cluster'] = kmeans.fit_predict(df_scaled)
 # Cluster-Statistik
 print(df_selected['Cluster'].value_counts())
 
-# Scatterplot
+# Scatterplot Frame_Depth and Sizes
 df_scaled_with_cluster = pd.DataFrame(df_scaled, columns=['Dimension{}'.format(i) for i in range(df_scaled.shape[1])])
 df_scaled_with_cluster['Cluster'] = df_selected['Cluster']
 sns.scatterplot(x='Dimension1', y='Dimension2',  hue='Cluster', data=df_scaled_with_cluster)
 plt.title('K-Means Clustering')
 plt.show()
+
+# Scatterplot 
+sns.scatterplot(x='size_horizontal_[m]', y='size_vertical_[m]',  hue='Cluster', data=df_selected)
+plt.title('K-Means Clustering')
+plt.xlabel('Size Horizontal [m]')
+plt.ylabel('Size Vertical [m]')
+plt.show()
+
+# Scatterplot 
+sns.scatterplot(x='size_horizontal_[m]', y='frame_depth_[cm]',  hue='Cluster', data=df_selected)
+plt.title('K-Means Clustering')
+plt.xlabel('Size Horizontal [m]')
+plt.ylabel('Frame Depth [cm]')
+plt.show()
+
 
 # Mean of Cluster
 cluster_means = df_selected.groupby('Cluster').mean()
