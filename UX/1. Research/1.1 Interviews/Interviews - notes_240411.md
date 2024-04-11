@@ -53,6 +53,7 @@ having software for cataloging that’s very general. It doesn't suit well the p
 <li>Sometimes you need the location of the window in the building (story, east, west, etc.)</li>
 <li>Ideally, all dimensions of frames to build a window in CAD software but it takes a lot of time - for the initial stage we don't need that information</li>
 <li>Different properties are needed for tendering and the upgrading stage of the process</li>
+</ul>
 
 <h2>Two options for dealing with a building:</h2>
 <ol>
