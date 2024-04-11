@@ -21,7 +21,8 @@ Interviews were conducted with members of Baukreisel.
 
 <h1>2. Notes:</h1>
 
-<h2>Process of cataloging on-site:</h2>
+<h2>
+Process of cataloging on-site:</h2>
 <ol>
 <li>figure out the information you need</li>
 <li>start somewhere eg. the lowest level. Have a system of that - maybe start on one side of the building and go around</li>
@@ -51,7 +52,7 @@ what info is needed? - you have to know that before starting the process:
 <li>sometimes you need the location of the window in the building (story, east, west, etc.)</li>
 <li>ideally, all dimensions of frames to build a window in CAD software but it takes a lot of time - for the initial stage we don't need that information</li>
 <li>different properties are needed for tendering and the upgrading stage of the process</li>
-<br>
+
 Two options for dealing with a building:
 <ol>
 <li>upgrading, not demolishing. Take windows out and improve them</li>
