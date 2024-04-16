@@ -1,18 +1,46 @@
-DS
-Data Cleaning and Exploration:
+<h1 align="center">Reuse Record</h1>
+
+<h5 align="center">
+  <a href="#About">About</a>  |
+  <a href="#Background">Background</a>  |
+  <a href="#DS">DS</a>  |
+  <a href="#UX">UX</a>  |
+  <a href="#WD">WD</a>  |
+  <a href="#Team">Team</a>  |
+</h5>
+
+## <h2>About</h2>
+
+## <h2>DS</h2>
+<h3>Data Cleaning and Exploration:</h3>
 The DS repository is dedicated to the preprocessing and exploration of raw data sourced from a CSV file. Initially, the data is scrubbed to ensure its usability, involving techniques such as handling missing values (NaN), imputing -1 values, and eliminating incomplete rows. Following this, various encoding methods including one hot encoding and label encoding are tested to ready the categorical data for analysis.
 
-Encoding and Analysis:
+<h3>Encoding and Analysis:</h3>
 Following data cleaning, exploratory data analysis (EDA) is conducted to uncover hidden patterns and distributions within the dataset. Pearson correlation analysis is then performed to elucidate relationships between different variables.
 
-Correlation and Clustering:
+<h3>Correlation and Clustering:</h3>
 The application of K-means clustering allows for the grouping of similar data points, with a focus on categorizing window types based on specific features. Additionally, an exploration of different scalers is undertaken to evaluate their impact on analysis results, including methods such as Min-Max scaling and Standard scaling.
 
-Advancing to HDBSCAN:
+<h3>Advancing to HDBSCAN:</h3>
 In pursuit of alternative clustering methods, HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise) is explored. This technique offers the ability to identify clusters of varying shapes and sizes, particularly advantageous in datasets where traditional methods may yield suboptimal results.
 
-Synthetic Data Generation and API Integration:
+<h3>Synthetic Data Generation and API Integration:</h3>
 Beyond clustering, the DS repository offers functionalities for synthetic data generation and integration with external APIs. These features expand the avenues for data exploration and analysis, fostering a deeper understanding of the dataset and its potential applications.
 
-Conclusion:
+<h3>Conclusion:</h3>
 Through meticulous data preprocessing, exploratory analysis, and advanced clustering techniques, this repository uncovers valuable insights and patterns within the dataset. These findings serve as a robust foundation for subsequent analysis and decision-making processes. With an open invitation to exploration and discovery, the DS repository contributes to the advancement of data analysis endeavors.
+
+## <h2>UX</h2>
+
+## <h2>Team</h2>
+
+Back End: Jannik Oslender<br>
+Data Science: Natalie Lunau<br>
+Front End: Pratima Maharjan<br>
+User Experience: Marta Jasińska
+
+<h3>Mentors</h3>
+
+Sueon Ahn<br>
+Rafael Saraiva
+
