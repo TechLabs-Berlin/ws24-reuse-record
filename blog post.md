@@ -8,6 +8,10 @@
   <a href="#Team">Team</a>
 </h5>
 
+## <h2>Presentation</h2>
+
+[Link](https://docs.google.com/presentation/d/1tFpVBlOtR2tdjKv4iYD2lg9xjpwsJLRYv0PWfzdhkak/edit?usp=sharing)
+
 ## <h2>DS</h2>
 <h3>Data Cleaning and Exploration:</h3>
 The DS repository is dedicated to the preprocessing and exploration of raw data sourced from a CSV file. Initially, the data is scrubbed to ensure its usability, involving techniques such as handling missing values (NaN), imputing -1 values, and eliminating incomplete rows. Following this, various encoding methods including one hot encoding and label encoding are tested to ready the categorical data for analysis.
@@ -74,9 +78,30 @@ After receiving feedback from the midterm presentation, I switched to learning R
 
 ## <h2>Backend</h2>
 
+<p>The first task was to create an extensive analysis of windows and how they are constructed, as well as wether there are already standards for describing them in a digital way.</p> 
+<p>All results of this research can be found in the following Miro link: https://miro.com/app/board/uXjVN2Hi_FY=/?share_link_id=574231864237</p>
+
+<h3>Ontology and Data Schema</h3>
+<p>Despite the existence of .ifc which is the standard data exchange format between digital platforms and software in the building industry, there exists no way of describing a huge variety of windows in a standardized way. Because of that, I first created an ontology that defines an overall naming schema for all the different elements in a window.</p>
+<p>Building further on that, a technical drawing was created that clarified the meaning of every property and linked that to a graphical representation. This proofed to be an important tool of documentation that enabled easy and precise communication between the different team members. The drawings and the ontology can be found in the miro link.</p>
+
+<h3>Express Server and Mongo DB Atlas Database</h3>
+
+<p>The project is build on a MERN Stack and thus is using Express as a server and Mongo/Mongoose as the Database. To make the Server and Database accessible from everywhere on the internet, node/express/mongoose are running on render.com on the web and the Mongo Database is hosted on MongoDB Atlas.</p> 
+<p>According to the documentation a mongoose model was created, that forms the basis for validating the data schema. The data structure is build in hierarchical way, so that properties of different parts of the window can be accessed independently. This way it is for example easily possible to list all the different glazing elements in the catalogue no matter to which window they are belonging.</p>
+<p>Different "full CRUD" API routes that deliver tailored data for the FrontEnd, DataScience and DeepLearning were created to centralize communication with the database. This is making sure that the data structure is always validated by mongoose before it is written to the database (server side validation). All routes are equipped with custom error handling and messages. Besides the properties describing a window also photos are stored in the database. Seed data was created to fill the catalogue of windows.</p>
+<p>To test the communication with the backend and to contribute to the FrontEnd I created call.js that is using axios to execute all the different possible api calls.</p>
+
+<h3>windowCalc</h3>
+
+<p>windowCalc was created to handle the complex data structure, make sure that only valid windows are created and most importantly calculate all the different properties of a window no matter how many properties you define in the input. This way the user but also DS and ImageRecognition can input just what they recognized and still get a full and valid window object.</p>
+<p>windowCalc is centrally stored and can be used everywhere in the app. Currently it is especially used as part of the FrontEnd to create a window object in every step of the configuration. The output is then used to create the graphical representation in the "What you see is what you get" editor. All the defaults are centrally stored in the function and are used when there is no user input for a certain property. When parts of the object are changed in the next step of the configuration, windowCalc is recalculating all necessary properties. Which properties are user set and which are calculated is defined in the documentation in blue (set) and yellow (calculate).</p>
+<p>windowCalc is not only able to calculate dimensions but can also pick a u-Value depending on the type of glazing.</p>
+<p>Validation and Error handling is making sure that you can only create valid windows. Error messages are telling you why a window could not be created.</p>
+
 ## <h2>Team</h2>
 
-Back End: Jannik Oslender<br>
+Back End & Front End: Jannik Oslender<br>
 Data Science: Natalie Lunau<br>
 Front End: Pratima Maharjan<br>
 User Experience: Marta Jasińska
