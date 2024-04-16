@@ -1,10 +1,24 @@
+# Reuse Record
+
+## Team
 
 - UX: Marta Jasińska
 - Web Development: Pratima Maharjan & Jannik Oslender
 - Data Science: Natalie Lunau
 
-This problem is especially key when realizing how important data is to create scalable reuse and refurbishment processes.
-The current solution are either excel sheets or unsatisfying apps that cannot handle the complexity of e.g. window elements and require you to input data over and over again when creating the record on site.
+How to start the app:
+
+- Go to the client directory
+- Run "npm install" to install all packages
+- Run "npm start"
+- Scan the QR code with the Expo Go app to try it out on your phone
+
+The server and database are hosted and running on render.com and Mongo DB Atlas.
+
+## Project Description
+
+Reuse of building parts is the single most effective way to reduce grey emissions when constructing or remodeling new and existing buildings. Currently the reuse process is a highly individual unindustrialized process that requires a lot of manual labour and is thus financially out of reach for most projects. Particularly recording and surveying the properties of all the different elements and materials in an existing building is a very time consuming and tedious task.
+
 
 🚀 Reuse Record aims to change that!
 
