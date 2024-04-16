@@ -32,6 +32,17 @@ Through meticulous data preprocessing, exploratory analysis, and advanced cluste
 
 ## <h2>UX</h2>
 
+## Frontend
+
+I started a new  React js project in our projects Git repository. and worked on different branches. I made short commits regularly and pushed them to my branch. Now I’m comfortable using Git for managing project files while working on different features and collaborating with other devs..
+
+At first, I used React and Tailwind CSS for a desktop version of the app. I learned about components, React Router for navigation, and data structures. Now I can convert objects in data structures.
+
+I used useState to manage the current application's states and useEffect to carry out any action on change.I created a visualization for a window configurator using the given data and configurations, like rows and columns count, cells'  and dimensions, etc and added logical functionality.
+
+After receiving feedback from the midterm presentation, I switched to learning React Native with Expo and TypeScript, which were needed for the project as we were focusing on users who will be using the app on their mobile phones.. I used Expo components, useState, useEffect, and useContext to manage child Sate. I also worked with APIs for data retrieval and included calculations in the frontend.utilizing calculate function, to consistently visualize the window configurator throughout the user journey.
+
+
 ## <h2>Team</h2>
 
 Back End: Jannik Oslender<br>
