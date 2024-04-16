@@ -4,7 +4,7 @@
   <a href="#DS">DS</a>  |
   <a href="#UX">UX</a>  |
   <a href="#WD">WD</a>  |
-  <a href="#Team">Team</a>  |
+  <a href="#Team">Team</a>
 </h5>
 
 ## <h2>DS</h2>
@@ -28,20 +28,20 @@ Through meticulous data preprocessing, exploratory analysis, and advanced cluste
 
 ## <h2>UX</h2>
 
-# Frontend
+# <h2>Frontend</h2>
 
 I started a new  React js project in our projects Git repository and worked on different branches. I made short commits regularly and pushed them to my branch. Now I’m comfortable using Git for managing project files while working on different features and collaborating with other devs..
 
-## Working with react and tailwind css
+## <h3>Working with react and tailwind css</h3>
 At first, I used React and Tailwind CSS for a desktop version of the app. I learned about components, React Router for navigation, and data structures. Now I can convert objects in data structures.
 
-## Working with useState and useEffect
+## <h3>Working with useState and useEffect</h3>
 I used useState to manage the current application's states and useEffect to carry out any action on change.I created a visualization for a window configurator using the given data and configurations, like rows and columns count, cells'  and dimensions, etc and added logical functionality.
 
-## Working with React native Expo and Typescript
+## <h3>Working with React native Expo and Typescript</h3>
 After receiving feedback from the midterm presentation, I switched to learning React Native with Expo and TypeScript, which were needed for the project as we were focusing on users who will be using the app on their mobile phones.. I used Expo components, useState, useEffect, and useContext to manage child Sate.
 
-## Working with backend API
+## <h3>Working with backend API</h3>
  I also worked with APIs for data retrieval and included calculations in the frontend.utilizing calculate function, to consistently visualize the window configurator throughout the user journey.
 
 
