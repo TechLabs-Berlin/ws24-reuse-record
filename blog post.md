@@ -74,6 +74,10 @@ After receiving feedback from the midterm presentation, I switched to learning R
 
 ## <h2>Backend</h2>
 
+
+
+
+
 ## <h2>Team</h2>
 
 Back End: Jannik Oslender<br>
