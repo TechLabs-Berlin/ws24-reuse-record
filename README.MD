@@ -5,7 +5,7 @@
 - UX: Marta Jasińska
 - Web Development: Pratima Maharjan & Jannik Oslender
 - Data Science: Natalie Lunau
-- Deep Learning: Soma Hargitai and Christoph Erber
+
 
 ## Project Description
 
