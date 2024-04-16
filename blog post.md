@@ -1,15 +1,11 @@
 <h1 align="center">Reuse Record</h1>
 
 <h5 align="center">
-  <a href="#About">About</a>  |
-  <a href="#Background">Background</a>  |
   <a href="#DS">DS</a>  |
   <a href="#UX">UX</a>  |
   <a href="#WD">WD</a>  |
   <a href="#Team">Team</a>  |
 </h5>
-
-## <h2>About</h2>
 
 ## <h2>DS</h2>
 <h3>Data Cleaning and Exploration:</h3>
