@@ -19,8 +19,7 @@ The current solution are either excel sheets or unsatisfying apps that cannot ha
 Together we are going to develop a web app that simplifies and speeds up the recording process by lot and creates structured data that later on could be used in the reuse and refurbishment process by humans and machines.
 This is accomplished by creating an intuitive and dynamic interface that lets you upload a photo and provides inputs for all important properties of the element (UX & WD FE).
 
-Image recognition is determining wether the element fits a type or configuration in the catalogue (DL).
-If it fits, the properties are filled in automatically and can be adjusted through the user. Suggesting location and storey from previous inputs and auto completion while typing is speeding up the process even more. (DS)
+Cluster analyses, utilizing methods such as K-Means and HDBSCAN, attempt to group windows based on certain features for a recommendation system. Different scaling methods are explored to understand their influence on the outcome of the analysis. This comprehensive approach ensures robust insights for effective decision-making in the recommendation system development.(DS)
 
 A graph database is storing all the information in a machine readable way and theoretically allows you to retrieve also complex implicit knowledge. (WD BE & DS)
 To make the scope feasible the project is focused on the recording and surveying of window elements.
