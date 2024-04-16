@@ -66,6 +66,12 @@ plt.xlabel('Size Horizontal [m]')
 plt.ylabel('Frame Depth [cm]')
 plt.show()
 
+# Scatterplot 
+sns.scatterplot(x='size_vertical_[m]', y='frame_depth_[cm]',  hue='Cluster', data=df_selected)
+plt.title('K-Means Clustering')
+plt.xlabel('Size Vertical [m]')
+plt.ylabel('Frame Depth [cm]')
+plt.show()
 
 # Mean of Cluster
 cluster_means = df_selected.groupby('Cluster').mean()

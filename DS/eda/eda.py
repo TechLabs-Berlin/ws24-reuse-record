@@ -52,3 +52,18 @@ plt.boxplot([df['size_horizontal_[m]'], df['size_vertical_[m]'], df['frame_depth
 plt.ylabel('Value')
 plt.title('Boxplot of size_horizontal_[m], size_vertical_[m] and frame_depth_[cm]')
 plt.show()
+
+
+correlation_matrix = df[['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']].corr()
+print("Correlation Matrix:")
+print(correlation_matrix)
+
+# Compute and print mean and other statistics
+means = df[['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']].mean()
+std_devs = df[['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']].std()
+print("\nMeans:")
+print(means)
+print("\nStandard Deviations:")
+print(std_devs)
+
+plt.show()

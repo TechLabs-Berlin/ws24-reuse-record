@@ -1,8 +1,10 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.metrics.pairwise import pairwise_distances
 import seaborn as sns
 import hdbscan
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
 #Import Data
 df = pd.read_csv("../cleaned_data.csv")
@@ -10,22 +12,37 @@ df = pd.read_csv("../cleaned_data.csv")
 selected_columns = ['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']
 df_selected = df[selected_columns].copy()
 
-scaler = MinMaxScaler()
+scaler = StandardScaler()
 df_scaled = scaler.fit_transform(df_selected)
+
+# Similarity Matrix
+similarity_matrix = pairwise_distances(df_scaled, metric='euclidean')
+
+# HDBSCAN Clustering based on Similarity Matrix
+clusterer = hdbscan.HDBSCAN(metric='precomputed')
+df['Cluster'] = clusterer.fit_predict(similarity_matrix)
+
+# Visualisation
+plt.figure(figsize=(8, 6))
+plt.scatter(df['size_horizontal_[m]'], df['size_vertical_[m]'], c=df['Cluster'], cmap='viridis')
+plt.xlabel('Size Horizontal [m]')
+plt.ylabel('Size Vertical [m]')
+plt.title('HDBSCAN Clustering Similarity Matrix')
+plt.show()
 
 features = ['size_horizontal_[m]', 'size_vertical_[m]', 'frame_depth_[cm]']
 X = df[features] 
 
-
 # Cluster  HDBSCAN
 plt.figure(figsize=(8, 6))
-clusterer = hdbscan.HDBSCAN(min_cluster_size=3)
+clusterer = hdbscan.HDBSCAN(min_cluster_size=3, )
 df['Cluster'] = clusterer.fit_predict(df_scaled)
 
-# Visualizing  Cluster
-plt.figure(figsize=(8, 6))
+# Visualizing Pairplot
+plt.figure(figsize=(4, 2))
 sns.scatterplot(data=df, x='size_horizontal_[m]', y='size_vertical_[m]', hue='Cluster')
-sns.pairplot(df, hue='Cluster')
+plt.figure(figsize=(4, 2))
+sns.pairplot(df, hue='Cluster', height=1.5, aspect=1.2)
 plt.show()
 
 # Scatterplot Frame_Depth and Sizes
@@ -51,7 +68,6 @@ plt.title('HDBSCAN Clustering')
 plt.xlabel('Size Horizontal [m]')
 plt.ylabel('Frame Depth [cm]')
 plt.show()
-
 
 print(df['Cluster'].value_counts())
 
