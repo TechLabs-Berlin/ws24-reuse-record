@@ -3,7 +3,8 @@
 <h5 align="center">
   <a href="#DS">DS</a>  |
   <a href="#UX">UX</a>  |
-  <a href="#WD">WD</a>  |
+  <a href="#Frontend">Frontend</a>  |
+  <a href="#Backend">Backend</a>  |
   <a href="#Team">Team</a>
 </h5>
 
@@ -28,7 +29,34 @@ Through meticulous data preprocessing, exploratory analysis, and advanced cluste
 
 ## <h2>UX</h2>
 
-# <h2>Frontend</h2>
+<p>The process began with conducting interviews with Baukreisel members to establish the requirements of the future users, as well as gaining insight into their on-site work processes, pain points, and current technologies in use. The interviews were recorded to ensure that all information gathered would be utilized in the analysis process. These interviews served as the basis for creating a user persona, scenario and stories for the project.</p>
+
+<p>Then, a set of features was developed which allowed to agree on the MVP.</p>
+
+<p><img src="https://github.com/TechLabs-Berlin/ws24-reuse-record/blob/main/UX/2.%20Analysis/2.1%20Features/Features_240411.png?raw=true" align="center"/>
+</p>
+
+<p>Understanding the process on-site and developing the user flow was crucial in creating user-friendly surveying form that speeds up the process of surveying windows.</p>
+
+<p><img src="https://github.com/TechLabs-Berlin/ws24-reuse-record/blob/main/UX/2.%20Analysis/2.2%20User%20Flow/User%20Flow_240411.png?raw=true align="center"/></p>
+
+<p>This laid the foundation for building wireframes in Figma. We decided to prioritize developing the prototype for a mobile phone. Given the volume of information and limited screen space, the input form had to be split into separate steps. The wireframe was tested regarding the comfort of use of the UI elements; necessary modifications were made (e.g. changing the position of the buttons for better reachability).</p>
+<p>
+<img src="https://i.ibb.co/3srJ91Q/canvas1.png" width="49%"/>
+<img src="https://i.ibb.co/q1HWLV4/Untitled2.png" width="49%"/></p>
+
+<p>Following that, a prototype of the catalog displaying surveyed windows was developed in several variants. One of the main features of the catalogue is displaying various types of windows, along with a detailed view of each window.</p>
+
+<p>
+<img src="https://i.ibb.co/9hDzTfc/canvas.png" width="32%"/>
+<img src="https://i.ibb.co/n8LPpzn/canvas1.png" width="32%"/>
+<img src="https://i.ibb.co/swJBwZX/canvas2.png" width="32%"/>
+</p>
+
+<p>User tests were conducted with three participants, who were given a sequence of tasks to complete and asked to comment on their actions. The process was carried out via video calls and recorded for analysis.</p>
+
+
+## <h2>Frontend</h2>
 
 I started a new  React js project in our projects Git repository and worked on different branches. I made short commits regularly and pushed them to my branch. Now I’m comfortable using Git for managing project files while working on different features and collaborating with other devs..
 
@@ -44,6 +72,7 @@ After receiving feedback from the midterm presentation, I switched to learning R
 ## <h3>Working with backend API</h3>
  I also worked with APIs for data retrieval and included calculations in the frontend.utilizing calculate function, to consistently visualize the window configurator throughout the user journey.
 
+## <h2>Backend</h2>
 
 ## <h2>Team</h2>
 
